@@ -1,0 +1,12 @@
+{
+  "name": "resume-pdf-builder",
+  "private": true,
+  "type": "module",
+  "description": "Builds the résumé PDF from resume.html using headless Chromium.",
+  "scripts": {
+    "build": "node build-pdf.mjs"
+  },
+  "devDependencies": {
+    "playwright": "1.49.1"
+  }
+}

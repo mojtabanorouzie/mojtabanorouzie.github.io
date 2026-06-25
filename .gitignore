@@ -1,0 +1,14 @@
+# Dependencies
+node_modules/
+resume/node_modules/
+
+# Generated résumé PDF — built in CI from resume/resume.html, shipped in the
+# Pages artifact. Don't commit it by hand.
+assets/Mojtaba-Norouzi-CV.pdf
+
+# Local preview config (machine-specific)
+.claude/
+
+# OS junk
+Thumbs.db
+.DS_Store

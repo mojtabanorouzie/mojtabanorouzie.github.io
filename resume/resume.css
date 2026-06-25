@@ -1,0 +1,97 @@
+/* Print-optimized résumé styles. A4, system fonts, ATS-friendly (real text). */
+@page {
+  size: A4;
+  margin: 14mm 15mm;
+}
+
+* { box-sizing: border-box; }
+
+:root {
+  --ink: #1b2330;
+  --dim: #4a5563;
+  --accent: #b8893f;     /* brass — matches the website motif */
+  --rule: #d8cdb8;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  color: var(--ink);
+  font-family: "Segoe UI", -apple-system, Roboto, Helvetica, Arial, sans-serif;
+  font-size: 10.5pt;
+  line-height: 1.45;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+
+.sheet { max-width: 180mm; margin: 0 auto; }
+
+/* Header */
+.head { text-align: center; margin-bottom: 10px; }
+.head h1 {
+  margin: 0;
+  font-size: 24pt;
+  letter-spacing: .5px;
+}
+.head .role {
+  margin: 2px 0 6px;
+  font-style: italic;
+  color: var(--dim);
+  font-size: 11pt;
+}
+.contact {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 4px 14px;
+  font-size: 9pt;
+  color: var(--dim);
+}
+.contact a { color: var(--dim); text-decoration: none; }
+
+/* Sections */
+section { margin-top: 12px; }
+h2 {
+  font-size: 11pt;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--accent);
+  margin: 0 0 6px;
+  padding-bottom: 3px;
+  border-bottom: 1.5px solid var(--rule);
+}
+p { margin: 0 0 4px; }
+
+/* Skills grid */
+.skills {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px 16px;
+  font-size: 9.5pt;
+}
+.skills li::before { content: "▪ "; color: var(--accent); }
+
+/* Jobs */
+.job { margin-bottom: 8px; page-break-inside: avoid; }
+.job__head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+}
+.job__head h3 { margin: 0; font-size: 11pt; }
+.job__meta { color: var(--dim); font-size: 9pt; font-style: italic; white-space: nowrap; }
+.job ul { margin: 3px 0 0; padding-left: 16px; }
+.job li { margin-bottom: 2px; }
+
+/* Generic lists */
+section > ul { margin: 0; padding-left: 16px; }
+.inline { list-style: none; padding: 0; display: flex; gap: 24px; }
+
+a { color: var(--accent); }
