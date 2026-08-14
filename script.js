@@ -82,6 +82,66 @@
     animated.forEach(function (el) { io.observe(el); });
   }
 
+  /* ---- Blog teaser ----
+     Reads the JSON feed the blog build already publishes. Progressive
+     enhancement: if the fetch fails (offline, file://, blog not built yet) the
+     section keeps its static "Read the blog" call to action and nothing else
+     changes. */
+  var writingList = document.getElementById("writing-list");
+  if (writingList && window.fetch) {
+    fetch("/blog/feed.json")
+      .then(function (response) {
+        if (!response.ok) throw new Error(response.status);
+        return response.json();
+      })
+      .then(function (feed) {
+        (feed.items || []).slice(0, 3).forEach(function (item) {
+          var li = document.createElement("li");
+          li.className = "writing__item";
+
+          var meta = document.createElement("p");
+          meta.className = "writing__meta";
+          var extra = item._blog || {};
+          var type = document.createElement("span");
+          type.className = "writing__type";
+          type.textContent = extra.type_label || extra.type || "Post";
+          meta.appendChild(type);
+
+          var when = new Date(item.date_published);
+          if (!isNaN(when)) {
+            var time = document.createElement("time");
+            time.dateTime = item.date_published;
+            time.textContent = when.toLocaleDateString("en-GB", {
+              day: "numeric", month: "short", year: "numeric", timeZone: "UTC"
+            });
+            meta.appendChild(document.createTextNode(" · "));
+            meta.appendChild(time);
+          }
+
+          var title = document.createElement("h3");
+          title.className = "writing__title";
+          var link = document.createElement("a");
+          // JSON Feed urls are absolute by spec; use the path so the link stays
+          // on whatever host is serving this page (localhost included).
+          link.href = extra.path || item.url;
+          link.textContent = item.title;
+          link.dir = "auto"; // titles may be Persian
+          title.appendChild(link);
+
+          var desc = document.createElement("p");
+          desc.className = "writing__desc";
+          desc.textContent = item.summary || "";
+          desc.dir = "auto";
+
+          li.appendChild(meta);
+          li.appendChild(title);
+          li.appendChild(desc);
+          writingList.appendChild(li);
+        });
+      })
+      .catch(function () { /* static CTA already covers this case */ });
+  }
+
   /* ---- Footer year ---- */
   var year = document.getElementById("year");
   if (year) year.textContent = new Date().getFullYear();

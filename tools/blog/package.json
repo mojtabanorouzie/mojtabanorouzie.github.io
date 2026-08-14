@@ -1,0 +1,13 @@
+{
+  "name": "blog-builder",
+  "private": true,
+  "type": "module",
+  "description": "Renders content/blog/*.md into static pages, feeds and a sitemap.",
+  "scripts": {
+    "build": "node build.mjs",
+    "test": "node --test"
+  },
+  "devDependencies": {
+    "marked": "18.0.9"
+  }
+}

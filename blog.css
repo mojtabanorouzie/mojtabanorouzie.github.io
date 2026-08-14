@@ -1,0 +1,605 @@
+/* ============================================================
+   Blog — editorial reading layer.
+
+   Loaded *after* styles.css, and only on blog pages. It adds no new
+   colours: every value below resolves to a token already defined in
+   styles.css, so the blog inherits the site's theming for free.
+
+   The one new idea is typographic — body copy is set in a system serif
+   while headings stay in the site's sans. That reads as "publication"
+   rather than "landing page", and costs zero bytes: no webfont is
+   downloaded for either.
+   ============================================================ */
+
+:root {
+  /* System serif stack, with Persian-capable faces appended so an RTL
+     paragraph falls back to something designed for the script rather than
+     to a Latin serif with no Persian glyphs. */
+  --font-reading: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia,
+    "Times New Roman", "Vazirmatn", "IRANSans", Tahoma, serif;
+  --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas,
+    "Liberation Mono", monospace;
+  --font-rtl: "Vazirmatn", "IRANSans", "Segoe UI", Tahoma, system-ui, sans-serif;
+
+  /* Reading measure: ~68 characters at the body size, the sweet spot for
+     long-form. Deliberately absolute rather than `ch` — `ch` resolves against
+     each element's own font, so the sans post header and the serif prose would
+     compute different widths and the article would lose its vertical spine.
+     The "wide" track lets figures, code and tables breathe past the text. */
+  --measure: 37.5rem;
+  --measure-wide: 45rem;
+
+  --hairline: color-mix(in srgb, var(--border) 75%, transparent);
+}
+
+/* ---- Page shell ---- */
+.blog-page {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: clamp(2.25rem, 6vw, 4rem) var(--pad) clamp(3.5rem, 8vw, 5.5rem);
+}
+
+/* Long unbroken tokens — URLs, identifiers, hashes — wrap instead of pushing
+   the page sideways. Deliberately excludes <pre>, where a long line should
+   scroll within its own box rather than reflow and lose its alignment. */
+.blog-page :is(h1, h2, h3, h4, h5, h6, p, li, dd, dt, figcaption, td, th, summary, a) {
+  overflow-wrap: break-word;
+}
+.blog-page pre,
+.blog-page pre * { overflow-wrap: normal; }
+
+.text-link {
+  color: var(--accent-text);
+  text-decoration: none;
+  font-weight: 600;
+  border-bottom: 1px solid transparent;
+  transition: border-color var(--transition);
+}
+.text-link:hover { border-bottom-color: currentColor; }
+
+/* ---- Blog hero ---- */
+.blog-hero {
+  max-width: var(--measure-wide);
+  padding-bottom: clamp(1.75rem, 4vw, 2.75rem);
+  margin-bottom: clamp(2rem, 5vw, 3rem);
+  border-bottom: 1px solid var(--hairline);
+}
+.blog-hero__title {
+  font-size: clamp(2.4rem, 8vw, 4rem);
+  margin: 0 0 .75rem;
+}
+.blog-hero__intro {
+  font-size: clamp(1.02rem, 2.4vw, 1.18rem);
+  color: var(--text-dim);
+  max-width: 58ch;
+  margin: 0;
+}
+.blog-hero__feed {
+  margin: 1.5rem 0 0;
+  font-size: .85rem;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+}
+
+/* ---- Shared post metadata ---- */
+.post-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: .5rem;
+  margin: 0 0 .55rem;
+  font-size: .82rem;
+  color: var(--text-dim);
+  font-variant-numeric: tabular-nums;
+}
+.post-meta__dot { opacity: .5; }
+
+.post-type {
+  color: var(--accent-text);
+  font-weight: 600;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  font-size: .72rem;
+}
+/* Each content type gets a quiet identity — a hue shift, not a badge. */
+.post-type--note,
+.post-type--reading { color: var(--accent-2); }
+
+.tags {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: .4rem;
+  padding: 0;
+  margin: .8rem 0 0;
+}
+.tags a {
+  display: inline-block;
+  font-size: .78rem;
+  color: var(--text-dim);
+  text-decoration: none;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: .15rem .55rem;
+  transition: color var(--transition), border-color var(--transition);
+}
+.tags a:hover { color: var(--accent-text); border-color: var(--accent); }
+
+/* ---- Lead post ---- */
+.post-lead {
+  display: grid;
+  gap: clamp(1.25rem, 3vw, 2rem);
+  margin-bottom: clamp(2.5rem, 6vw, 4rem);
+}
+/* Grid items default to min-width:auto, i.e. they refuse to shrink below their
+   longest word. Without this a single long identifier widens the whole page. */
+.post-lead > * { min-width: 0; }
+@media (min-width: 860px) {
+  .post-lead { grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); align-items: center; }
+  .post-lead__cover { order: 2; }
+}
+.post-lead__cover {
+  display: block;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: var(--bg-elev);
+}
+.post-lead__cover img { display: block; width: 100%; }
+.post-lead__title {
+  font-size: clamp(1.7rem, 4.6vw, 2.5rem);
+  margin: 0 0 .6rem;
+  letter-spacing: -.025em;
+}
+.post-lead__title a { text-decoration: none; }
+.post-lead__title a:hover { color: var(--accent-text); }
+.post-lead__desc {
+  font-family: var(--font-reading);
+  font-size: 1.08rem;
+  line-height: 1.6;
+  color: var(--text-dim);
+  margin: 0;
+  max-width: 46ch;
+}
+.post-lead__more { margin: 1.2rem 0 0; font-size: .95rem; }
+
+/* ---- Post list ----
+   A list, not a card grid. Hairlines and rhythm do the work that borders
+   and shadows would otherwise do, which keeps the page quiet. */
+.post-group { margin-top: clamp(2.5rem, 6vw, 3.5rem); }
+.post-group__year {
+  font-size: .82rem;
+  letter-spacing: .16em;
+  text-transform: uppercase; /* no-op for a year; unifies the "More posts" label */
+  color: var(--text-dim);
+  font-variant-numeric: tabular-nums;
+  margin: 0 0 .5rem;
+  padding-bottom: .75rem;
+  border-bottom: 1px solid var(--hairline);
+}
+
+.post-list { list-style: none; margin: 0; padding: 0; }
+.post-item {
+  padding: clamp(1.4rem, 3vw, 1.9rem) 0;
+  border-bottom: 1px solid var(--hairline);
+}
+.post-item:last-child { border-bottom: 0; }
+.post-item__title {
+  font-size: clamp(1.15rem, 2.8vw, 1.4rem);
+  margin: 0 0 .4rem;
+  max-width: 34ch;
+}
+.post-item__title a {
+  text-decoration: none;
+  transition: color var(--transition);
+}
+.post-item__title a:hover { color: var(--accent-text); }
+.post-item__desc {
+  font-family: var(--font-reading);
+  color: var(--text-dim);
+  margin: 0;
+  max-width: 62ch;
+  line-height: 1.6;
+}
+
+.blog-empty {
+  font-family: var(--font-reading);
+  font-size: 1.1rem;
+  color: var(--text-dim);
+  max-width: 52ch;
+  padding: 2rem 0;
+}
+.blog-back { margin-top: 3rem; }
+
+/* ---- Tag cloud ---- */
+.tag-cloud {
+  margin-top: clamp(3rem, 7vw, 4.5rem);
+  padding-top: clamp(1.75rem, 4vw, 2.5rem);
+  border-top: 1px solid var(--hairline);
+}
+.tag-cloud__title {
+  font-size: .82rem;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin: 0 0 1rem;
+}
+.tags--cloud { gap: .5rem; margin: 0; }
+.tags--cloud a { padding: .35rem .75rem; font-size: .88rem; }
+.tag-count {
+  font-variant-numeric: tabular-nums;
+  opacity: .55;
+  font-size: .8em;
+  margin-inline-start: .2em;
+}
+
+/* ============================================================
+   Article page
+   ============================================================ */
+
+/* One vertical spine for the whole article: text blocks sit on the --measure
+   column, media and navigation on the wider one. Both are centred on the same
+   axis, so the extra width reads as hierarchy rather than as misalignment. */
+.blog-page--post { max-width: none; }
+.blog-page--post :is(.post__back, .post__header, .toc, .post__footer) {
+  max-width: var(--measure);
+  margin-inline: auto;
+}
+.blog-page--post :is(.post__cover, .pager, .related) {
+  max-width: var(--measure-wide);
+  margin-inline: auto;
+}
+
+.post__back {
+  margin-block: 0 clamp(1.5rem, 4vw, 2.5rem);
+  font-size: .9rem;
+}
+
+.post__header {
+  margin-bottom: clamp(1.75rem, 4vw, 2.5rem);
+}
+.post__title {
+  font-size: clamp(2.1rem, 6.2vw, 3.4rem);
+  line-height: 1.1;
+  margin: 0 0 .75rem;
+  /* Long unbroken words (URLs, identifiers) must not push the page sideways. */
+  overflow-wrap: break-word;
+}
+.post__deck {
+  font-family: var(--font-reading);
+  font-size: clamp(1.1rem, 2.6vw, 1.3rem);
+  line-height: 1.55;
+  color: var(--text-dim);
+  margin: 0;
+  max-width: 54ch;
+}
+.post__updated,
+.post__source { margin: .9rem 0 0; font-size: .88rem; color: var(--text-dim); }
+
+.post__cover {
+  margin-block: 0 clamp(2rem, 5vw, 3rem);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: var(--bg-elev);
+}
+.post__cover img { display: block; width: 100%; }
+
+/* ---- Table of contents ---- */
+.toc {
+  margin-block: 0 clamp(2rem, 5vw, 2.75rem);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--bg-elev);
+  padding: .35rem 1.1rem;
+}
+.toc__summary {
+  cursor: pointer;
+  padding: .7rem 0;
+  font-size: .8rem;
+  font-weight: 600;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+}
+.toc__summary::marker { color: var(--accent); }
+.toc[open] .toc__summary { border-bottom: 1px solid var(--hairline); margin-bottom: .6rem; }
+.toc__list { list-style: none; margin: 0 0 .9rem; padding: 0; }
+.toc__item { margin: .35rem 0; font-size: .95rem; }
+.toc__item--h3 { padding-inline-start: 1.1rem; font-size: .9rem; }
+.toc__item a { color: var(--text-dim); text-decoration: none; }
+.toc__item a:hover { color: var(--accent-text); }
+
+/* ============================================================
+   Prose — the actual reading surface.
+
+   A named grid gives three tracks: `text` for the reading column,
+   `wide` for figures/code/tables that benefit from extra room, and
+   `full` if anything ever needs the whole width. Children opt in by
+   element, so Markdown stays plain Markdown.
+   ============================================================ */
+.prose {
+  display: grid;
+  /* The container is already padded, so the tracks add none — otherwise the
+     text column would inset twice and stop lining up with the post header on
+     narrow screens, where the outer tracks collapse to zero. */
+  grid-template-columns:
+    [full-start] minmax(0, 1fr)
+    [wide-start] minmax(0, calc((var(--measure-wide) - var(--measure)) / 2))
+    [text-start] min(100%, var(--measure)) [text-end]
+    minmax(0, calc((var(--measure-wide) - var(--measure)) / 2)) [wide-end]
+    minmax(0, 1fr) [full-end];
+
+  font-family: var(--font-reading);
+  font-size: clamp(1.02rem, 1.9vw, 1.1rem);
+  line-height: 1.75;
+  color: var(--text);
+}
+.prose > * { grid-column: text; }
+.prose > .figure,
+.prose > .code-block,
+.prose > .table-wrap { grid-column: wide; }
+
+.prose > * + * { margin-top: 1.35em; }
+
+/* Headings return to the site's sans — the editorial contrast that makes
+   the serif body read as body copy. */
+.prose :is(h1, h2, h3, h4, h5, h6) {
+  font-family: var(--font);
+  line-height: 1.25;
+  letter-spacing: -.02em;
+  scroll-margin-top: 5rem; /* clears the sticky header on anchor jumps */
+}
+.prose > h2 {
+  font-size: clamp(1.5rem, 3.4vw, 1.85rem);
+  margin-top: 2.5em;
+  padding-top: .4em;
+}
+.prose > h3 { font-size: clamp(1.2rem, 2.8vw, 1.35rem); margin-top: 2em; }
+.prose > h4 { font-size: 1.05rem; margin-top: 1.8em; color: var(--text-dim); }
+.prose :is(h2, h3, h4) + * { margin-top: .8em; }
+
+/* Heading anchors: invisible until the heading is hovered or the link is
+   focused, so they never clutter the page but stay keyboard-reachable. */
+.heading-anchor {
+  margin-inline-start: .4em;
+  color: var(--accent-text);
+  text-decoration: none;
+  opacity: 0;
+  transition: opacity var(--transition);
+}
+:is(h2, h3, h4):hover > .heading-anchor,
+.heading-anchor:focus-visible { opacity: 1; }
+@media (hover: none) { .heading-anchor { display: none; } }
+
+.prose a {
+  color: var(--text);
+  text-decoration-line: underline;
+  text-decoration-color: var(--accent);
+  text-decoration-thickness: 1px;
+  text-underline-offset: .18em;
+  transition: color var(--transition);
+}
+.prose a:hover { color: var(--accent-text); }
+
+.prose strong { font-weight: 700; }
+.prose :is(ul, ol) { padding-inline-start: 1.5em; }
+.prose li + li { margin-top: .5em; }
+.prose li::marker { color: var(--accent); }
+
+.prose blockquote {
+  margin-inline: 0;
+  padding-inline-start: 1.4rem;
+  border-inline-start: 3px solid var(--accent);
+  color: var(--text-dim);
+  font-style: italic;
+}
+.prose blockquote p { margin: 0; }
+.prose blockquote p + p { margin-top: .8em; }
+
+.prose hr {
+  border: 0;
+  border-top: 1px solid var(--hairline);
+  margin-block: 2.5em;
+}
+
+/* ---- Figures ---- */
+.figure { margin: 0; }
+.figure img {
+  display: block;
+  width: 100%;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--bg-elev);
+}
+.figure figcaption {
+  margin-top: .7rem;
+  font-family: var(--font);
+  font-size: .85rem;
+  line-height: 1.5;
+  color: var(--text-dim);
+  text-align: center;
+}
+
+/* ---- Code ---- */
+.prose :is(code, kbd, samp) {
+  font-family: var(--font-mono);
+  font-size: .875em;
+  /* Isolate so a Latin identifier never reorders the Persian text around it. */
+  unicode-bidi: isolate;
+  direction: ltr;
+}
+.prose :not(pre) > code {
+  background: var(--bg-elev);
+  border: 1px solid var(--hairline);
+  border-radius: 5px;
+  padding: .1em .38em;
+  overflow-wrap: break-word;
+}
+
+.code-block {
+  position: relative;
+  background: var(--bg-elev);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+.code-block pre {
+  margin: 0;
+  padding: 1.1rem 1.2rem;
+  overflow-x: auto;
+  /* Code is never reflowed — long lines scroll rather than wrap, so
+     alignment and indentation survive. */
+  tab-size: 2;
+}
+.code-block code {
+  display: block;
+  font-size: .84rem;
+  line-height: 1.7;
+  color: var(--text);
+  white-space: pre;
+}
+.code-block pre:focus-visible { outline-offset: -2px; }
+
+/* Language label, top-right, quiet. Hidden on narrow screens where the
+   horizontal room matters more than the hint. */
+.code-block[data-lang]::after {
+  content: attr(data-lang);
+  position: absolute;
+  top: .5rem;
+  inset-inline-end: .75rem;
+  font-family: var(--font-mono);
+  font-size: .68rem;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  opacity: .65;
+  pointer-events: none;
+}
+@media (max-width: 560px) {
+  .code-block[data-lang]::after { display: none; }
+  .code-block pre { padding: .9rem 1rem; }
+}
+
+/* ---- Tables ---- */
+.table-wrap { overflow-x: auto; }
+.prose table {
+  border-collapse: collapse;
+  width: 100%;
+  font-family: var(--font);
+  font-size: .9rem;
+  line-height: 1.5;
+}
+.prose :is(th, td) {
+  text-align: start;
+  padding: .65rem .85rem;
+  border-bottom: 1px solid var(--hairline);
+  vertical-align: top;
+}
+.prose th {
+  font-weight: 600;
+  color: var(--accent-text);
+  border-bottom-color: var(--border);
+  white-space: nowrap;
+}
+.prose tbody tr:last-child :is(th, td) { border-bottom: 0; }
+
+/* ============================================================
+   Persian / RTL
+   ============================================================ */
+[dir="rtl"] {
+  /* A Latin serif has no Persian glyphs; use a face designed for the
+     script, with the extra leading Persian needs to stay legible. */
+  font-family: var(--font-rtl);
+  line-height: 1.95;
+}
+
+/* `.prose` sets its own font on itself, so plain inheritance from an RTL
+   ancestor never reaches the body copy — these have to out-specify it.
+   Two directions are covered: an RTL article, and an RTL block quoted inside
+   an otherwise LTR one. */
+[dir="rtl"] .prose,
+.prose [dir="rtl"] {
+  font-family: var(--font-rtl);
+  line-height: 1.95;
+  letter-spacing: 0;
+}
+[dir="rtl"] .prose :is(h1, h2, h3, h4, h5, h6) {
+  font-family: var(--font-rtl);
+  letter-spacing: 0;
+  line-height: 1.5;
+}
+/* …and the mirror case: an English block inside a Persian article returns to
+   the reading serif. Declared last so it wins the tie on equal specificity. */
+.prose [dir="ltr"] {
+  font-family: var(--font-reading);
+  line-height: 1.75;
+}
+
+[dir="rtl"] .post__title,
+[dir="rtl"] .post__deck { font-family: var(--font-rtl); letter-spacing: 0; }
+[dir="rtl"] :is(.post__deck, .post-item__desc, .post-lead__desc) { line-height: 1.85; }
+/* Direction-neutral separators would otherwise flip on RTL articles. */
+[dir="rtl"] .post-meta { direction: rtl; }
+.post .figure figcaption { direction: ltr; }
+
+/* ============================================================
+   Post footer: byline, pager, related
+   ============================================================ */
+.post__footer {
+  margin-block: clamp(3rem, 7vw, 4.5rem) 0;
+  padding-top: clamp(1.5rem, 4vw, 2rem);
+  border-top: 1px solid var(--hairline);
+}
+.byline { display: flex; align-items: center; gap: .9rem; }
+.byline__mark { color: var(--accent); flex: none; }
+.byline__name { margin: 0; font-weight: 700; }
+.byline__role { margin: .1rem 0 0; font-size: .85rem; color: var(--text-dim); }
+
+.pager {
+  display: grid;
+  gap: 1rem;
+  margin-top: clamp(2.5rem, 6vw, 3.5rem);
+}
+@media (min-width: 640px) { .pager { grid-template-columns: 1fr 1fr; } }
+.pager__link {
+  display: block;
+  min-width: 0; /* see .post-lead > * above */
+  padding: 1.1rem 1.25rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--bg-card);
+  text-decoration: none;
+  transition: border-color var(--transition), transform var(--transition);
+}
+.pager__link:hover { border-color: var(--accent); transform: translateY(-2px); }
+.pager__link.is-empty { border: 0; background: none; }
+@media (max-width: 639px) { .pager__link.is-empty { display: none; } }
+.pager__label {
+  display: block;
+  font-size: .75rem;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin-bottom: .35rem;
+}
+.pager__title { display: block; font-weight: 600; line-height: 1.35; }
+.pager__link--prev { text-align: end; }
+
+.related {
+  margin-top: clamp(2.5rem, 6vw, 3.5rem);
+  padding-top: clamp(1.5rem, 4vw, 2rem);
+  border-top: 1px solid var(--hairline);
+}
+.related__title {
+  font-size: .82rem;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin: 0 0 .5rem;
+}
+
+/* ---- Footer link row (blog pages) ---- */
+.site-footer__links { margin: .4rem 0 0; }
+.site-footer__links a { color: var(--text-dim); text-decoration: none; }
+.site-footer__links a:hover { color: var(--accent-text); }
+

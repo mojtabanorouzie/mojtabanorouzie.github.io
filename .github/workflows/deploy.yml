@@ -33,6 +33,19 @@ jobs:
         with:
           node-version: 20
 
+      # Build the blog from content/blog/*.md into blog/ (plus sitemap.xml and
+      # robots.txt). Runs before the artifact upload, like the PDF below.
+      - name: Install blog builder deps
+        working-directory: tools/blog
+        run: npm ci || npm install
+
+      - name: Test blog builder
+        working-directory: tools/blog
+        run: npm test
+
+      - name: Build blog
+        run: node tools/blog/build.mjs
+
       # Build the résumé PDF from resume/resume.html into assets/ so it ships in
       # the same Pages artifact the site links to.
       - name: Install PDF builder deps
@@ -45,6 +58,15 @@ jobs:
 
       - name: Build résumé PDF
         run: node resume/build-pdf.mjs
+
+      # The social card shares the Chromium installed above — tools/og pins the
+      # same Playwright version, so nothing extra is downloaded.
+      - name: Install social card builder deps
+        working-directory: tools/og
+        run: npm ci || npm install
+
+      - name: Build social card
+        run: node tools/og/build-og.mjs
 
       - name: Configure Pages
         uses: actions/configure-pages@v5

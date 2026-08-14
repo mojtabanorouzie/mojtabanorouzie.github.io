@@ -19,6 +19,9 @@
   --border: #2a3340;
   --accent: var(--brass);
   --accent-2: var(--indigo);
+  /* Accent for small text that must clear WCAG AA. On the dark background the
+     brass already measures 8.6:1, so it is the same colour here. */
+  --accent-text: var(--brass);
   --shadow: 0 10px 30px rgba(0,0,0,.35);
 
   --maxw: 1080px;
@@ -37,6 +40,9 @@
   --border: #e2dccf;
   --accent: var(--brass-deep);
   --accent-2: #3f5aa6;
+  /* --brass-deep is only 2.9:1 on this background — too low for text. This is
+     the same hue taken darker, at 4.9:1. */
+  --accent-text: #8f6220;
   --shadow: 0 10px 30px rgba(40,40,60,.12);
 }
 
@@ -203,6 +209,19 @@ img { max-width: 100%; height: auto; }
 .embed iframe { width: 100%; height: 100%; border: 0; }
 .embed__placeholder { place-self: center; text-align: center; color: var(--text-dim); padding: 1.5rem; margin: 0; }
 .embed code { background: var(--bg-elev); padding: .1rem .4rem; border-radius: 4px; color: var(--accent); }
+
+/* ---- Blog teaser (list filled from /blog/feed.json by script.js) ---- */
+.writing__list { list-style: none; margin: 1.5rem 0 0; padding: 0; }
+.writing__list:empty { display: none; }
+.writing__item { padding: 1.1rem 0; border-bottom: 1px solid var(--border); }
+.writing__item:last-child { border-bottom: 0; }
+.writing__meta { margin: 0 0 .3rem; font-size: .8rem; color: var(--text-dim); }
+.writing__type { color: var(--accent-text); font-weight: 600; letter-spacing: .08em; text-transform: uppercase; font-size: .72rem; }
+.writing__title { font-size: 1.1rem; font-weight: 700; margin: 0 0 .3rem; line-height: 1.3; }
+.writing__title a { text-decoration: none; }
+.writing__title a:hover { color: var(--accent-text); }
+.writing__desc { margin: 0; color: var(--text-dim); font-size: .95rem; max-width: 62ch; }
+.writing__cta { margin-top: 1.75rem; }
 
 /* ---- Contact ---- */
 .section--contact { text-align: center; }
