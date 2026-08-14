@@ -67,6 +67,7 @@
           <li>Built and deployed MigMig to replace the legacy delivery platform, migrated the remaining flows, and decommissioned both legacy systems — retiring the monolith's operational surface entirely.</li>
           <li>Reduced production incidents from near-daily to 1–2 per month by moving off Windows Server infrastructure and its maintenance windows onto containerized services on Kubernetes.</li>
           <li>Designed AutoRadius, a rules engine replacing manual per-store delivery-radius configuration — encoding operations agents' expertise as rules evaluated against time of day, weather and pending-order backlog.</li>
+          <li>Designed the Kafka pipeline feeding AutoRadius's pending-order signal: order events keyed by order ID are re-partitioned into store-keyed events, so each store's pending-order count updates through a single ordered partition per store — avoiding lock contention on a shared table.</li>
           <li>Built operational-excellence domains for store ETA, ranking and filtering, and consolidated services into a monorepo.</li>
           <li>Adopted a spec-driven, AI-assisted development workflow for complex features; team delivery throughput held steady (tracked in Jira) after headcount dropped from five engineers to three.</li>
           <li>Mentor mid-level and junior engineers through design review and day-to-day technical unblocking.</li>
