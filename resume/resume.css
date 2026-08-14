@@ -65,33 +65,33 @@ h2 {
 }
 p { margin: 0 0 4px; }
 
-/* Skills grid */
+/* Skills — one labelled group per row. Single column is deliberate: a multi-column
+   grid extracts out of reading order in ATS text parsers. */
 .skills {
   list-style: none;
   margin: 0;
   padding: 0;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 2px 16px;
   font-size: 9.5pt;
 }
+.skills li { margin-bottom: 1px; }
 .skills li::before { content: "▪ "; color: var(--accent); }
+.skills strong { font-weight: 600; }
 
-/* Jobs */
-.job { margin-bottom: 8px; page-break-inside: avoid; }
-.job__head {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  gap: 12px;
-}
-.job__head h3 { margin: 0; font-size: 11pt; }
-.job__meta { color: var(--dim); font-size: 9pt; font-style: italic; white-space: nowrap; }
+/* Jobs — heading, then metadata beneath it, so the two stay bound in reading order. */
+.job { margin-bottom: 9px; page-break-inside: avoid; }
+.job h3 { margin: 0; font-size: 11pt; }
+.job__meta { color: var(--dim); font-size: 9pt; font-style: italic; margin: 0 0 2px; }
+.job__context { font-size: 9pt; color: var(--dim); margin: 0 0 3px; }
+.quiet { font-style: normal; }
 .job ul { margin: 3px 0 0; padding-left: 16px; }
 .job li { margin-bottom: 2px; }
 
+/* Education */
+.edu { margin-bottom: 5px; page-break-inside: avoid; }
+.edu h3 { margin: 0; font-size: 10.5pt; font-weight: 600; }
+.edu p { font-size: 9.5pt; color: var(--dim); margin: 1px 0 0; }
+
 /* Generic lists */
 section > ul { margin: 0; padding-left: 16px; }
-.inline { list-style: none; padding: 0; display: flex; gap: 24px; }
 
 a { color: var(--accent); }

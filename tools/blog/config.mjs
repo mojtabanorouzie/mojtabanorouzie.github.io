@@ -12,7 +12,7 @@ export const SITE = {
     "A working notebook. Things I learned, things I built, papers and articles I went down a rabbit hole on, and the occasional half-formed idea I wanted to write down before it evaporated.",
   author: {
     name: "Mojtaba Norouzi",
-    role: "Senior Backend Engineer · Tech Lead · Persian musician",
+    role: "Senior Software Engineer · Backend & Distributed Systems · Persian musician",
     email: "mojtaba.norouzie@gmail.com",
     github: "https://github.com/mojtabanorouzie",
     linkedin: "https://www.linkedin.com/in/mojtabanorouzi/",

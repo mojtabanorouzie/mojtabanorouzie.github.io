@@ -7,16 +7,20 @@
 </head>
 <body>
   <!-- Print-optimized résumé. Source of truth for the generated PDF.
-       Edit this file; CI re-renders it to assets/Mojtaba-Norouzi-CV.pdf. -->
+       Edit this file; CI re-renders it to assets/Mojtaba-Norouzi-CV.pdf.
+
+       Structure note: every block is single-column and puts its heading before its
+       metadata, so an ATS text parser reads title → employer → dates in that order.
+       Do not reintroduce side-by-side columns here. -->
   <main class="sheet">
 
     <header class="head">
       <h1>Mojtaba Norouzi</h1>
-      <p class="role">Senior Backend Engineer · Tech Lead</p>
+      <p class="role">Senior Software Engineer · Backend &amp; Distributed Systems</p>
       <ul class="contact">
         <li><a href="mailto:mojtaba.norouzie@gmail.com">mojtaba.norouzie@gmail.com</a></li>
         <li>+98 937 176 2407</li>
-        <li>Tehran, Iran</li>
+        <li>Tehran, Iran — open to relocation (EU)</li>
         <li><a href="https://www.linkedin.com/in/mojtabanorouzi/">linkedin.com/in/mojtabanorouzi</a></li>
         <li><a href="https://github.com/mojtabanorouzie">github.com/mojtabanorouzie</a></li>
       </ul>
@@ -25,26 +29,24 @@
     <section>
       <h2>Summary</h2>
       <p>
-        Senior Software Engineer with 5+ years designing scalable backend systems for e-commerce
-        and logistics platforms. Expert in ASP.NET Core, microservices, and distributed
-        architectures using DDD and EDD. Proven success leading technical teams, integrating
-        third-party APIs, and improving business KPIs through system modernization. Eager to
-        contribute high-impact backend solutions to innovative engineering teams.
+        Backend engineer with 9 years building e-commerce, logistics and financial-services
+        systems — the last five at Okala, one of Iran's largest online grocery platforms,
+        handling 150K+ orders a day and over 300K during campaigns. Twice built the replacement
+        for a live production platform from scratch, migrated every operational flow onto it, and
+        retired the original. Depth in .NET, event-driven architecture and domain-driven design,
+        backed by an M.Sc. in Artificial Intelligence and a peer-reviewed publication on
+        reinforcement learning.
       </p>
     </section>
 
     <section>
-      <h2>Skills</h2>
+      <h2>Core Technical Skills</h2>
       <ul class="skills">
-        <li>C#, .NET (Framework / Core 6–8)</li>
-        <li>ASP.NET Core, EF, LINQ, T-SQL</li>
-        <li>Microservices, Clean Architecture</li>
-        <li>Domain-Driven Design (DDD)</li>
-        <li>Event-Driven Design (EDD)</li>
-        <li>Kafka, RabbitMQ, Redis</li>
-        <li>SQL Server, Docker, Git</li>
-        <li>Unit &amp; Integration Testing</li>
-        <li>CI/CD, Agile (Scrum)</li>
+        <li><strong>Languages &amp; frameworks:</strong> C#, .NET (Framework, Core 6–10), ASP.NET Core, Entity Framework, LINQ</li>
+        <li><strong>Architecture:</strong> Microservices, Domain-Driven Design (DDD), Event-Driven Design (EDD), Clean Architecture</li>
+        <li><strong>Messaging &amp; data:</strong> Apache Kafka, RabbitMQ, Redis, SQL Server, T-SQL</li>
+        <li><strong>Infrastructure &amp; delivery:</strong> Kubernetes, Docker, CI/CD, Git, monorepo, production on-call</li>
+        <li><strong>Practice:</strong> Unit &amp; integration testing, spec-driven AI-assisted development, Agile (Scrum)</li>
       </ul>
     </section>
 
@@ -52,44 +54,48 @@
       <h2>Experience</h2>
 
       <article class="job">
-        <div class="job__head">
-          <h3>Tech Lead — Fulfillment &amp; Delivery</h3>
-          <span class="job__meta">Okala, Tehran · 2021 – Present</span>
-        </div>
+        <h3>Senior Software Engineer — Okala (Golrang Industrial Group)</h3>
+        <p class="job__meta">Tehran, Iran · 2021 – Present</p>
+        <p class="job__context">
+          Okala is the online retail arm of Golrang Industrial Group (~100 subsidiaries,
+          ~50,000 employees), serving customers and partner supermarkets nationwide.
+          Scope progression: Fulfillment &amp; Delivery → Logistics → Operational Excellence.
+        </p>
         <ul>
-          <li>Spearheaded migration from monolithic systems to .NET 8 microservices using DDD and EDD, improving scalability and reducing downtime.</li>
-          <li>Designed and implemented RESTful APIs handling 200K+ daily orders, integrating third-party logistics systems with Kafka.</li>
-          <li>Mentored a team of 3 engineers, introducing CI/CD pipelines and clean-architecture principles, increasing delivery efficiency.</li>
-          <li>Optimized critical logistics and delivery processes spanning the call center, couriers, and customers.</li>
+          <li>Owned execution of a multi-year migration off the fulfillment monolith across four platform generations — Fulfillment &amp; Delivery services on Kubernetes, then Logistics, then Operational Excellence — carrying each migration end to end.</li>
+          <li>Built Logan, the replacement for the legacy fulfillment platform, from zero: took it to production, migrated every flow onto it, then handed the platform over to a dedicated team.</li>
+          <li>Built and deployed MigMig to replace the legacy delivery platform, migrated the remaining flows, and decommissioned both legacy systems — retiring the monolith's operational surface entirely.</li>
+          <li>Reduced production incidents from near-daily to 1–2 per month by moving off Windows Server infrastructure and its maintenance windows onto containerized services on Kubernetes.</li>
+          <li>Designed AutoRadius, a rules engine replacing manual per-store delivery-radius configuration — encoding operations agents' expertise as rules evaluated against time of day, weather and pending-order backlog.</li>
+          <li>Built operational-excellence domains for store ETA, ranking and filtering, and consolidated services into a monorepo.</li>
+          <li>Adopted a spec-driven, AI-assisted development workflow for complex features; team delivery throughput held steady (tracked in Jira) after headcount dropped from five engineers to three.</li>
+          <li>Mentor mid-level and junior engineers through design review and day-to-day technical unblocking.</li>
         </ul>
       </article>
 
       <article class="job">
-        <div class="job__head">
-          <h3>Back-End Developer</h3>
-          <span class="job__meta">Avisa, Tehran · 2017 – 2021</span>
-        </div>
+        <h3>Backend Engineer</h3>
+        <p class="job__meta">Capital-markets software company · Tehran, Iran · 2017 – 2021</p>
         <ul>
-          <li>Developed and maintained core services in C# using ASP.NET, RabbitMQ, SQL Server, and Redis for internal and external applications.</li>
-          <li>Built internal tools for operations, including automated reporting and real-time dashboards.</li>
-          <li>Progressively took ownership of key services, improving performance and reliability while deepening expertise in messaging systems and relational databases.</li>
+          <li>Built backend services for an online meeting and conferencing platform connecting stock-market participants, launched during the COVID-19 period to replace in-person stakeholder meetings.</li>
+          <li>Developed and maintained core services in C# and ASP.NET, backed by RabbitMQ, SQL Server and Redis.</li>
+          <li>Built internal operations tooling, including automated reporting and real-time dashboards.</li>
+          <li>Took progressive ownership of core services, deepening expertise in message-driven design and relational data modelling.</li>
+          <li>Completed an M.Sc. in Artificial Intelligence concurrently (2016 – 2019).</li>
         </ul>
       </article>
     </section>
 
     <section>
-      <h2>Education</h2>
-      <article class="job">
-        <div class="job__head">
-          <h3>M.Sc. in Artificial Intelligence</h3>
-          <span class="job__meta">Shahid Beheshti University · 2016 – 2019</span>
-        </div>
+      <h2>Education &amp; Research</h2>
+      <article class="edu">
+        <h3>M.Sc. in Artificial Intelligence</h3>
+        <p>Shahid Beheshti University · 2016 – 2019</p>
+        <p>Multi-Agent Systems (MAS) Lab — thesis research on transfer learning for reinforcement learning.</p>
       </article>
-      <article class="job">
-        <div class="job__head">
-          <h3>B.Sc. in Computer Engineering</h3>
-          <span class="job__meta">Shahrood University of Technology · 2012 – 2016</span>
-        </div>
+      <article class="edu">
+        <h3>B.Sc. in Computer Engineering</h3>
+        <p>Shahrood University of Technology · 2012 – 2016</p>
       </article>
     </section>
 
@@ -97,7 +103,8 @@
       <h2>Publication</h2>
       <ul>
         <li>
-          “Experience Classification for Transfer Learning in Traffic Signal Control” — Springer, 2020.
+          “Experience Classification for Transfer Learning in Traffic Signal Control” —
+          <em>The Journal of Supercomputing</em> (Springer), 2020.
           <a href="https://link.springer.com/article/10.1007/s11227-020-03287-x">link.springer.com/article/10.1007/s11227-020-03287-x</a>
         </li>
       </ul>
@@ -105,9 +112,9 @@
 
     <section>
       <h2>Languages</h2>
-      <ul class="inline">
-        <li>Persian — Native</li>
-        <li>English — Proficient</li>
+      <ul class="skills">
+        <li><strong>Persian:</strong> Native</li>
+        <li><strong>English:</strong> Professional working proficiency — used daily at work</li>
       </ul>
     </section>
 

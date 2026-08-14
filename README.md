@@ -187,10 +187,17 @@ Engineering, education, links, and résumé download are filled from the real CV
 - LinkedIn: <https://www.linkedin.com/in/mojtabanorouzi/>
 - Email: `mojtaba.norouzie@gmail.com`
 
-**Still predicted — review & rewrite:** the **Music → Performance highlights** (concert
-venues/years are plausible stand-ins) and the instrument blurbs. The **Music embed** block
-is an optional slot — uncomment the `<iframe>` in `index.html` and set a YouTube/SoundCloud
-URL, or delete the `.embed` block.
+The **Music → Performance highlights** list and the empty embed slot were placeholder
+content and have been removed — do not reintroduce venues, dates or credits that have not
+been verified. The instrument cards still assert an **"Advanced · Performer"** level, which
+is unconfirmed; correct or remove it.
+
+**Résumé claims are evidence-backed.** Titles, dates, scale figures and outcomes in
+`resume/resume.html` were reconstructed from a structured interview, and each is intended
+to be defensible in a technical interview and consistent with what a former employer would
+confirm. The 2017–2021 employer is deliberately unnamed (described by sector) at the
+owner's request — that is a privacy choice, not a placeholder, and it should never be
+replaced with an invented company name.
 
 Optional: add `assets/og-image.png` (1200×630) for a richer social-share preview.
 
