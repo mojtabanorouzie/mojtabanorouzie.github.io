@@ -1,0 +1,12 @@
+{
+  "name": "og-card-builder",
+  "private": true,
+  "type": "module",
+  "description": "Renders the Open Graph social card from card.html using headless Chromium.",
+  "scripts": {
+    "build": "node build-og.mjs"
+  },
+  "devDependencies": {
+    "playwright": "1.49.1"
+  }
+}

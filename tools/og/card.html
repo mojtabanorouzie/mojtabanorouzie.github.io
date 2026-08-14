@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Social card</title>
+  <!-- Source of truth for assets/og-image.png. Rendered to PNG at exactly
+       1200×630 by build-og.mjs. Edit here; CI re-renders on every push.
+       System fonts only — nothing is fetched at render time. -->
+  <style>
+    :root {
+      --bg: #0e1116;
+      --brass: #d8a657;
+      --indigo: #6d8ad1;
+      --text: #e8ecf2;
+      --dim: #9aa6b6;
+      --font: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      width: 1200px;
+      height: 630px;
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      /* Extra bottom padding lifts the centred block clear of the URL. */
+      padding: 0 88px 118px;
+      position: relative;
+      overflow: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* The site's motif: a waveform that reads as both audio and data. */
+    .wave {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      opacity: .5;
+    }
+
+    .rule {
+      width: 76px;
+      height: 5px;
+      background: var(--brass);
+      border-radius: 3px;
+      margin-bottom: 38px;
+    }
+
+    .eyebrow {
+      font-size: 25px;
+      font-weight: 600;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: var(--brass);
+      margin-bottom: 20px;
+    }
+
+    h1 {
+      font-size: 82px;
+      font-weight: 700;
+      letter-spacing: -.03em;
+      line-height: 1.05;
+      margin-bottom: 26px;
+    }
+
+    p {
+      font-size: 31px;
+      line-height: 1.45;
+      color: var(--dim);
+      max-width: 500px;
+    }
+    p em { color: var(--text); font-style: normal; }
+
+    .url {
+      position: absolute;
+      left: 88px;
+      bottom: 58px;
+      font-size: 24px;
+      letter-spacing: .06em;
+      color: var(--dim);
+    }
+
+    .content { position: relative; z-index: 2; max-width: 760px; }
+
+    /* The brand glyph, balancing the left-weighted text block. */
+    .mark {
+      position: absolute;
+      right: 88px;
+      top: 46%;
+      transform: translateY(-50%);
+      width: 232px;
+      height: 232px;
+      color: var(--brass);
+      opacity: .92;
+    }
+  </style>
+</head>
+<body>
+  <!-- Waves sit below the text block rather than through it, so nothing
+       dashed ever crosses a letterform. -->
+  <svg class="wave" viewBox="0 0 1200 630" preserveAspectRatio="none" aria-hidden="true">
+    <path d="M0,545 Q150,430 300,545 T600,545 T900,545 T1200,545"
+          fill="none" stroke="#d8a657" stroke-width="3" stroke-dasharray="7 12" opacity=".3" />
+    <path d="M0,545 Q150,660 300,545 T600,545 T900,545 T1200,545"
+          fill="none" stroke="#6d8ad1" stroke-width="3" stroke-dasharray="7 12" opacity=".22" />
+  </svg>
+
+  <svg class="mark" viewBox="0 0 32 32" aria-hidden="true">
+    <g stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
+      <line x1="8" y1="13" x2="8" y2="19"/>
+      <line x1="12" y1="10" x2="12" y2="22"/>
+      <line x1="16" y1="6" x2="16" y2="26"/>
+      <line x1="20" y1="11" x2="20" y2="21"/>
+      <line x1="24" y1="14" x2="24" y2="18"/>
+    </g>
+  </svg>
+
+  <div class="content">
+    <div class="rule"></div>
+    <div class="eyebrow">Backend · Distributed systems · AI</div>
+    <h1>Mojtaba Norouzi</h1>
+    <p>Notes on <em>engineering</em>, and on the <em>rhythms</em> underneath it.</p>
+  </div>
+
+  <div class="url">mojtabanorouzie.github.io</div>
+</body>
+</html>

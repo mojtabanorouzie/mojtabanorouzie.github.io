@@ -18,11 +18,29 @@ tying the two identities together. Palette: deep indigo/charcoal + warm brass.
 resume-site/
 ├── index.html      # all content + sections
 ├── styles.css      # design tokens, layout, theming
-├── script.js       # theme toggle, mobile nav, scroll reveal
+├── blog.css        # editorial reading layer (blog pages only)
+├── script.js       # theme toggle, mobile nav, scroll reveal, blog teaser
+├── 404.html        # branded not-found page (served by GitHub Pages)
 ├── README.md
+├── content/blog/   # ← the blog. One Markdown file per post.
+├── tools/blog/     # the generator that turns that Markdown into HTML
+├── tools/og/       # card.html → assets/og-image.png (social preview)
+├── resume/         # print-styled résumé, source of the generated PDF
 └── assets/
-    ├── Mojtaba-Resume.pdf   # (add yours — hero "Download Résumé" button)
-    └── og-image.png         # (add yours — 1200×630 social preview)
+    ├── blog/                    # images used by posts
+    ├── Mojtaba-Norouzi-CV.pdf   # generated in CI, gitignored
+    └── og-image.png             # generated in CI, gitignored
+```
+
+Generated and gitignored: `blog/`, `sitemap.xml`, `robots.txt`, `assets/og-image.png`
+and the résumé PDF. All are rebuilt in CI on every push, so nothing generated is ever
+committed — the deployed site always matches its source.
+
+Rebuild everything locally:
+
+```bash
+npm --prefix tools/blog ci && node tools/blog/build.mjs
+npm --prefix tools/og  ci && node tools/og/build-og.mjs
 ```
 
 ## Run locally
@@ -90,6 +108,76 @@ node resume/build-pdf.mjs   # -> assets/Mojtaba-Norouzi-CV.pdf
 Trigger a CI rebuild any time from the **Actions** tab (the workflow has
 `workflow_dispatch`), or just push to `main`.
 
+## Blog
+
+Posts are Markdown files in `content/blog/`. `tools/blog/build.mjs` renders them to
+static HTML in `blog/` at build time — the browser gets no Markdown parser and no
+client-side rendering.
+
+### Publish a post
+
+```bash
+# 1. write — the filename becomes the URL: my-post.md → /blog/my-post/
+$EDITOR content/blog/my-post.md
+
+# 2. preview
+node tools/blog/build.mjs && python -m http.server 8123
+
+# 3. publish
+git add content/blog/my-post.md && git commit -m "post: my post" && git push
+```
+
+Pushing to `main` triggers CI, which reruns the tests, rebuilds the blog and the PDF,
+and deploys. There is no admin UI and no database.
+
+### Frontmatter
+
+```yaml
+---
+title: Ordering is a local property   # required
+description: One or two sentences.    # optional — derived from the first paragraph
+date: 2026-07-18                      # required, YYYY-MM-DD
+updated: 2026-08-02                   # optional
+type: article                         # article | note | reading | build
+tags: [Kafka, distributed-systems]    # optional
+featured: true                        # optional — pins the post to the index hero
+draft: true                           # optional — excluded from the build entirely
+cover: /assets/blog/cover.png        # optional — raster (png/jpg/webp), see below
+coverAlt: Description of the image.   # required whenever cover is set
+lang: fa                              # optional, default en
+link: https://…                       # optional — the source a `reading` post is about
+---
+```
+
+The build **fails loudly** on a missing title or date, an unknown `type`, a cover
+without alt text, a duplicate slug, or `<script>`/`onclick=`/`javascript:` in the body.
+Errors name the file and list every problem at once.
+
+### Notes
+
+- **Drafts never reach disk.** `draft: true` produces no page, no feed entry and no
+  sitemap row. To preview one locally: `BLOG_DRAFTS=1 node tools/blog/build.mjs`.
+- **Body headings start at `##`.** A `#` in the body is rendered as `<h2>`, because the
+  page's `<h1>` is the post title.
+- **Persian works.** Set `lang: fa`; each block is given the direction its own text
+  wants, so an English paragraph inside a Persian post stays LTR (and vice versa). Code
+  is always LTR.
+- **Covers should be raster.** An SVG cover still renders on the page, but social
+  crawlers reject SVG, so the share card falls back to `assets/og-image.png`.
+- **Routes:** `/blog/`, `/blog/<slug>/`, `/blog/tags/`, `/blog/tags/<tag>/`,
+  `/blog/rss.xml`, `/blog/feed.json`, plus `/sitemap.xml` and `/robots.txt`.
+- **`slug: tags` is reserved** — the build owns `/blog/tags/` and rejects the collision.
+
+### Tests
+
+```bash
+npm --prefix tools/blog test
+```
+
+Covers frontmatter parsing, slugs, direction detection, rendering, draft exclusion,
+generated metadata, feeds, and the empty/single-post/invalid-content cases. CI runs it
+before every deploy.
+
 ## Content status
 
 Engineering, education, links, and résumé download are filled from the real CV
@@ -99,10 +187,17 @@ Engineering, education, links, and résumé download are filled from the real CV
 - LinkedIn: <https://www.linkedin.com/in/mojtabanorouzi/>
 - Email: `mojtaba.norouzie@gmail.com`
 
-**Still predicted — review & rewrite:** the **Music → Performance highlights** (concert
-venues/years are plausible stand-ins) and the instrument blurbs. The **Music embed** block
-is an optional slot — uncomment the `<iframe>` in `index.html` and set a YouTube/SoundCloud
-URL, or delete the `.embed` block.
+The **Music → Performance highlights** list and the empty embed slot were placeholder
+content and have been removed — do not reintroduce venues, dates or credits that have not
+been verified. The instrument cards still assert an **"Advanced · Performer"** level, which
+is unconfirmed; correct or remove it.
+
+**Résumé claims are evidence-backed.** Titles, dates, scale figures and outcomes in
+`resume/resume.html` were reconstructed from a structured interview, and each is intended
+to be defensible in a technical interview and consistent with what a former employer would
+confirm. The 2017–2021 employer is deliberately unnamed (described by sector) at the
+owner's request — that is a privacy choice, not a placeholder, and it should never be
+replaced with an invented company name.
 
 Optional: add `assets/og-image.png` (1200×630) for a richer social-share preview.
 

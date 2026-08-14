@@ -1,0 +1,64 @@
+name: CI
+
+# The deploy workflow only runs on pushes to main, which means a pull request
+# would otherwise reach production unverified. This mirrors the deploy build
+# exactly — same Node version, same steps — but stops short of publishing, so a
+# broken build is caught before it is merged rather than mid-deploy.
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install blog builder deps
+        working-directory: tools/blog
+        run: npm ci || npm install
+
+      - name: Test blog builder
+        working-directory: tools/blog
+        run: npm test
+
+      - name: Build blog
+        run: node tools/blog/build.mjs
+
+      - name: Install PDF builder deps
+        working-directory: resume
+        run: npm ci || npm install
+
+      - name: Install Chromium for Playwright
+        working-directory: resume
+        run: npx playwright install --with-deps chromium
+
+      - name: Build résumé PDF
+        run: node resume/build-pdf.mjs
+
+      - name: Install social card builder deps
+        working-directory: tools/og
+        run: npm ci || npm install
+
+      - name: Build social card
+        run: node tools/og/build-og.mjs
+
+      # Cheap guard against a build that "succeeds" while producing nothing.
+      - name: Check the expected files exist
+        run: |
+          set -euo pipefail
+          for f in blog/index.html blog/rss.xml blog/feed.json sitemap.xml robots.txt \
+                   assets/og-image.png assets/Mojtaba-Norouzi-CV.pdf; do
+            test -s "$f" || { echo "::error::missing or empty: $f"; exit 1; }
+          done
+          echo "All expected build outputs present."

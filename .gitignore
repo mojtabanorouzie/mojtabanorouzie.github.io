@@ -6,6 +6,15 @@ resume/node_modules/
 # Pages artifact. Don't commit it by hand.
 assets/Mojtaba-Norouzi-CV.pdf
 
+# Generated social card — built in CI from tools/og/card.html.
+assets/og-image.png
+
+# Generated blog — built in CI from content/blog/*.md by tools/blog/build.mjs.
+# Edit the Markdown, never the HTML.
+/blog/
+/sitemap.xml
+/robots.txt
+
 # Local preview config (machine-specific)
 .claude/
 
