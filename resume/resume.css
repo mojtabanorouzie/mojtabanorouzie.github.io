@@ -83,8 +83,14 @@ p { margin: 0 0 4px; }
 .job__meta { color: var(--dim); font-size: 9pt; font-style: italic; margin: 0 0 2px; }
 .job__context { font-size: 9pt; color: var(--dim); margin: 0 0 3px; }
 .quiet { font-style: normal; }
-.job ul { margin: 3px 0 0; padding-left: 16px; }
-.job li { margin-bottom: 2px; }
+/* Bullets carry a real "•" text glyph instead of the browser's default disc. A disc
+   is drawn as a vector path, so it does not exist in the PDF text layer — without a
+   marker, an ATS parser has no signal for where one achievement ends and the next
+   begins, and reflows all of them into a single block. Same trick as .skills above.
+   The inline-block marker plus negative text-indent preserves the hanging indent. */
+.job ul { list-style: none; margin: 3px 0 0; padding-left: 0; }
+.job li { margin-bottom: 2px; padding-left: 16px; text-indent: -16px; }
+.job li::before { content: "•"; display: inline-block; width: 16px; text-indent: 0; }
 
 /* Education */
 .edu { margin-bottom: 5px; page-break-inside: avoid; }
