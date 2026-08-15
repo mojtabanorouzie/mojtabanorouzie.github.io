@@ -1,7 +1,11 @@
 name: Deploy to GitHub Pages
 
-# Builds nothing (static site) — just publishes the repo root to GitHub Pages
-# on every push to main. Works for both <username>.github.io repos and project repos.
+# Publishes the repo root to GitHub Pages on every push to main. Not a plain copy:
+# the blog (content/blog/*.md -> blog/), the résumé PDF (resume/resume.html ->
+# assets/) and the social card are all generated below, before the artifact is
+# uploaded, so the deployed site carries freshly built output alongside the
+# checked-in HTML. ci.yml mirrors these same build steps for pull requests.
+# Works for both <username>.github.io repos and project repos.
 
 on:
   push:
