@@ -1,8 +1,8 @@
 // Single source of truth for everything the generator needs to know about the site.
-// Change the origin here if the site ever moves to a custom domain — canonical URLs,
+// Change the origin here if the site ever moves (it must match CNAME) — canonical URLs,
 // Open Graph tags, the sitemap and both feeds all read from it.
 export const SITE = {
-  origin: "https://mojtabanorouzie.github.io",
+  origin: "https://mojtaba.tech",
   title: "Mojtaba Norouzi",
   blogTitle: "Blog — Mojtaba Norouzi",
   blogDescription:
