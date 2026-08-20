@@ -33,20 +33,25 @@
         and financial-services systems — the last five at Okala, one of Iran's largest online
         grocery platforms, handling 150K+ orders a day and over 300K during campaigns. Twice
         built the replacement for a live production platform from scratch, migrated every
-        operational flow onto it, and retired the original. Depth in .NET, distributed systems,
-        event-driven architecture and domain-driven design, backed by an M.Sc. in Artificial
-        Intelligence and a peer-reviewed publication on reinforcement learning.
+        operational flow onto it, and retired the original; now building a .NET 10
+        delivery-operations platform of four independently deployable services — 198 versioned
+        REST endpoints, a 40-topic Kafka event backbone with per-entity ordering and a
+        transactional outbox, and geospatial store coverage on SQL Server. Depth in .NET,
+        distributed systems, event-driven architecture and domain-driven design, backed by an
+        M.Sc. in Artificial Intelligence and a peer-reviewed publication on reinforcement
+        learning.
       </p>
     </section>
 
     <section>
       <h2>Core Technical Skills</h2>
       <ul class="skills">
-        <li><strong>Languages &amp; frameworks:</strong> C#, .NET (Framework, Core 6-10), ASP.NET Core, Entity Framework, LINQ</li>
-        <li><strong>Architecture:</strong> Microservices, Domain-Driven Design (DDD), Event-Driven Design (EDD), Clean Architecture</li>
-        <li><strong>Messaging &amp; data:</strong> Apache Kafka, RabbitMQ, Redis, SQL Server, T-SQL</li>
-        <li><strong>Infrastructure &amp; delivery:</strong> Kubernetes, Docker, CI/CD, Git, monorepo, production on-call</li>
-        <li><strong>Practice:</strong> Unit &amp; integration testing, spec-driven AI-assisted development, Agile (Scrum)</li>
+        <li><strong>Languages &amp; frameworks:</strong> C#, .NET (Framework, Core 6-10), ASP.NET Core, Entity Framework Core, LINQ, Polly</li>
+        <li><strong>Architecture:</strong> Clean Architecture, Domain-Driven Design (DDD), Event-Driven Design (EDD), microservices &amp; modular monoliths, REST API design &amp; versioning, transactional outbox</li>
+        <li><strong>Messaging &amp; data:</strong> Apache Kafka, RabbitMQ, Redis, SQL Server, T-SQL, geospatial data (NetTopologySuite, SQL Server spatial types)</li>
+        <li><strong>Observability:</strong> Prometheus, Elastic APM distributed tracing, Serilog structured logging, Elasticsearch</li>
+        <li><strong>Infrastructure &amp; delivery:</strong> Kubernetes, Docker, GitLab CI/CD, Git, monorepo, Hangfire, production on-call</li>
+        <li><strong>Testing &amp; practice:</strong> xUnit, Testcontainers, Moq, BDD (Gherkin/Reqnroll), spec-driven AI-assisted development, Agile (Scrum)</li>
       </ul>
     </section>
 
@@ -58,18 +63,23 @@
         <p class="job__meta">Tehran, Iran · 2021 - Present</p>
         <p class="job__context">
           Okala is the online retail arm of Golrang Industrial Group (~100 subsidiaries,
-          ~50,000 employees), serving customers and partner supermarkets nationwide.
-          Scope progression: Fulfillment &amp; Delivery → Logistics → Operational Excellence.
+          ~50,000 employees). Scope progression: Fulfillment &amp; Delivery → Logistics →
+          Operational Excellence.
         </p>
         <ul>
           <li>Owned execution of a multi-year migration off the fulfillment monolith across four platform generations — Fulfillment &amp; Delivery services on Kubernetes, then Logistics, then Operational Excellence — carrying each migration end to end.</li>
-          <li>Built Logan, the replacement for the legacy fulfillment platform, from zero: took it to production, migrated every flow onto it, then handed the platform over to a dedicated team.</li>
-          <li>Built and deployed MigMig to replace the legacy delivery platform, migrated the remaining flows, and decommissioned both legacy systems — retiring the monolith's operational surface entirely.</li>
+          <li>Twice built the replacement for a live production platform from zero — first fulfillment, then delivery — took each to production, migrated every operational flow across, and decommissioned both legacy systems, retiring the monolith's operational surface entirely.</li>
           <li>Improved platform reliability — production incidents fell from near-daily to 1-2 per month — by migrating off Windows Server infrastructure and its maintenance windows onto cloud-native containerized services on Kubernetes.</li>
-          <li>Designed AutoRadius, a rules engine replacing manual per-store delivery-radius configuration — encoding operations agents' expertise as rules evaluated against time of day, weather and pending-order backlog.</li>
-          <li>Designed the Kafka pipeline feeding AutoRadius's pending-order signal: order events keyed by order ID are re-partitioned into store-keyed events, so each store's pending-order count updates through a single ordered partition per store — avoiding lock contention on a shared table.</li>
-          <li>Built operational-excellence domains for store ETA, ranking and filtering, and consolidated services into a monorepo.</li>
-          <li>Adopted a spec-driven, AI-assisted development workflow for complex features; team delivery throughput held steady (tracked in Jira) after headcount dropped from five engineers to three.</li>
+          <li>Built, with the team, the current delivery-operations platform — four independently deployable .NET 10 services (two REST APIs, two Kafka consumer workers) in one Clean Architecture monorepo — exposing 198 versioned REST endpoints across 32 controllers, with four versions of the store API running side by side behind JWT auth, role-based authorization and per-user rate limiting.</li>
+          <li>Led the platform's Kafka event-backbone work — 40 topics, 24 consumers and 55 producers across the four services — with at-least-once delivery and per-entity ordering by keying every message on its business entity ID.</li>
+          <li>Hardened event delivery against failure: consumer retry with backoff, a persisted transactional outbox whose sweeper reprocesses failed events every 2 minutes, and an atomic Redis SET NX guard that prevents duplicate customer notifications across service replicas.</li>
+          <li>Designed AutoRadius, a rules engine replacing manual per-store delivery-radius configuration — encoding operations agents' expertise as rules over time of day, weather and pending-order backlog — fed by a Kafka pipeline that re-partitions order-keyed events onto one ordered partition per store, avoiding lock contention on a shared table.</li>
+          <li>Built geospatial store coverage and nearby-store search on SQL Server spatial types with NetTopologySuite (SRID 4326) — delivery-radius coverage, polygon non-coverage areas and distance-ranked results.</li>
+          <li>Evolved two SQL Server schemas through 88 EF Core migrations, split reads onto a read-replica DbContext, and wrote a NOLOCK query extension that keeps read-uncommitted hot paths compatible with EF Core's retrying execution strategy.</li>
+          <li>Stood up the containerized integration harness behind a three-tier suite of ~503 tests — real SQL Server and Redis via Testcontainers, two full ASP.NET Core hosts driven over real HTTP through typed clients, sharded across parallel GitLab CI jobs.</li>
+          <li>Instrumented all four services with 33 dimensional Prometheus business metrics, structured Serilog logging shipped to Elasticsearch, and Elastic APM distributed traces propagated across HTTP, EF Core, Redis and Kafka.</li>
+          <li>Planned and executed the platform's phased .NET 8 → .NET 10 migration across all four services.</li>
+          <li>Codified the team's engineering standards in a project constitution and built the spec-driven, AI-assisted development workflow behind them — 41 recorded feature specs; delivery throughput held steady (tracked in Jira) after headcount dropped from five engineers to three.</li>
           <li>Mentor mid-level and junior engineers through code review, design review and day-to-day technical unblocking.</li>
         </ul>
       </article>
@@ -81,8 +91,6 @@
           <li>Built backend services for an online meeting and conferencing platform connecting stock-market participants, launched during the COVID-19 period to replace in-person stakeholder meetings.</li>
           <li>Developed and maintained core services in C# and ASP.NET, backed by RabbitMQ, SQL Server and Redis.</li>
           <li>Built internal operations tooling, including automated reporting and real-time dashboards.</li>
-          <li>Took progressive ownership of core services, deepening expertise in message-driven design and relational data modelling.</li>
-          <li>Completed an M.Sc. in Artificial Intelligence concurrently (2016 - 2019).</li>
         </ul>
       </article>
     </section>
