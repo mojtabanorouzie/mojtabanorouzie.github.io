@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import { describe, it } from "node:test";
 import { renderMarkdown, tokenText } from "./markdown.mjs";
+import { SITE } from "./config.mjs";
 
 const render = (md, options) => renderMarkdown(md, options).html;
 
@@ -72,7 +73,7 @@ describe("links", () => {
   });
 
   it("treats the site's own absolute URLs as internal", () => {
-    const html = render("[home](https://mojtabanorouzie.github.io/blog/x/)");
+    const html = render(`[home](${SITE.origin}/blog/x/)`);
     assert.ok(!html.includes("noopener"));
   });
 });
