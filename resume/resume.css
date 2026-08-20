@@ -78,7 +78,13 @@ p { margin: 0 0 4px; }
 .skills strong { font-weight: 600; }
 
 /* Jobs — heading, then metadata beneath it, so the two stay bound in reading order. */
-.job { margin-bottom: 9px; page-break-inside: avoid; }
+/* A job's bullet list is allowed to flow across a page break. Keeping the article
+   whole strands the rest of the current sheet as whitespace once the list outgrows
+   it. What must not break: an individual bullet, and a heading left without its
+   opening bullets. */
+.job { margin-bottom: 9px; }
+.job h3, .job__meta, .job__context { page-break-after: avoid; break-after: avoid; }
+.job li { page-break-inside: avoid; break-inside: avoid; }
 .job h3 { margin: 0; font-size: 11pt; }
 .job__meta { color: var(--dim); font-size: 9pt; font-style: italic; margin: 0 0 2px; }
 .job__context { font-size: 9pt; color: var(--dim); margin: 0 0 3px; }
