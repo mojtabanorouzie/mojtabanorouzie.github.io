@@ -1,0 +1,93 @@
+name: Build binary assets
+
+# Rebuilds the résumé PDF and the social card, then commits them.
+#
+# Why these two are committed when everything else generated is gitignored:
+# both need headless Chromium, and the site is served by Vercel, whose build
+# container cannot launch it. Chromium downloads there fine, but Playwright's
+# host check fails on libnss3 and libnspr4, and the container gives no root to
+# install them. GitHub's runner has apt and root, so the binaries are built
+# here and committed, and Vercel simply serves them as static files.
+#
+# The loop this obviously invites is closed by the path filter below: this
+# workflow only triggers on changes to the *sources*, while the commit it makes
+# touches assets/ only. A rebuild therefore cannot retrigger a rebuild.
+#
+# Note the commit message deliberately avoids "[skip ci]" — Vercel honours that
+# marker too, and skipping the Vercel build is the opposite of what we want:
+# the whole point is for Vercel to redeploy with the fresh files.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "resume/**"
+      - "tools/og/**"
+      - ".github/workflows/build-assets.yml"
+  workflow_dispatch: # lets you force a rebuild from the Actions tab
+
+# Needed to push the rebuilt binaries back to main.
+permissions:
+  contents: write
+
+# Two runs racing would fight over the same commit; let the newer one win.
+concurrency:
+  group: build-assets
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Set up Node
+        uses: actions/setup-node@v7
+        with:
+          node-version: 20
+
+      - name: Install PDF builder deps
+        working-directory: resume
+        run: npm ci || npm install
+
+      # --with-deps is the step Vercel cannot perform: it apt-gets the browser
+      # libraries. It works here because the runner has root.
+      - name: Install Chromium for Playwright
+        working-directory: resume
+        run: npx playwright install --with-deps chromium
+
+      - name: Build résumé PDF
+        run: node resume/build-pdf.mjs
+
+      # tools/og pins the same Playwright version, so this reuses the Chromium
+      # installed above rather than downloading a second copy.
+      - name: Install social card builder deps
+        working-directory: tools/og
+        run: npm ci || npm install
+
+      - name: Build social card
+        run: node tools/og/build-og.mjs
+
+      # Cheap guard against a build that "succeeds" while producing nothing.
+      - name: Check the assets exist and are non-empty
+        run: |
+          set -euo pipefail
+          for f in assets/Mojtaba-Norouzi-CV.pdf assets/og-image.png; do
+            test -s "$f" || { echo "::error::missing or empty: $f"; exit 1; }
+          done
+          echo "Both assets present."
+
+      - name: Commit the rebuilt assets if they changed
+        run: |
+          set -euo pipefail
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add assets/Mojtaba-Norouzi-CV.pdf assets/og-image.png
+          if git diff --cached --quiet; then
+            echo "Assets are byte-identical to what is committed; nothing to push."
+          else
+            git commit -m "Rebuild résumé PDF and social card"
+            git push
+            echo "Pushed rebuilt assets; Vercel will redeploy."
+          fi

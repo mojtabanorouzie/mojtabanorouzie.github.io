@@ -2,7 +2,11 @@
 // Change the origin here if the site ever moves to a custom domain — canonical URLs,
 // Open Graph tags, the sitemap and both feeds all read from it.
 export const SITE = {
-  origin: "https://mojtabanorouzie.github.io",
+  // The canonical origin. Everything absolute — canonical links, Open Graph
+  // tags, the sitemap and both feeds — is derived from this single value, so
+  // moving hosts again means changing this one line (or setting SITE_ORIGIN,
+  // which still wins, for a staged cutover).
+  origin: process.env.SITE_ORIGIN || "https://mojtaba.tech",
   title: "Mojtaba Norouzi",
   blogTitle: "Blog — Mojtaba Norouzi",
   blogDescription:
