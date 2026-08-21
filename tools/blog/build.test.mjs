@@ -9,8 +9,14 @@ import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { after, before, describe, it } from "node:test";
 import { build } from "./build.mjs";
+import { SITE } from "./config.mjs";
 
 const silent = { log() {}, warn() {}, error() {} };
+
+// SITE.origin is env-overridable for the domain cutover, so these tests derive
+// their expectations from it rather than pinning a hostname that would fail the
+// build the moment the origin changes. Escaped for use inside a RegExp.
+const ORIGIN_RE = SITE.origin.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 
 const FIXTURES = {
   "published.md": `---
@@ -207,10 +213,7 @@ describe("article metadata", () => {
   });
 
   it("sets a canonical URL", () => {
-    assert.match(
-      html,
-      /<link rel="canonical" href="https:\/\/mojtabanorouzie\.github\.io\/blog\/published\/" \/>/,
-    );
+    assert.match(html, new RegExp(`<link rel="canonical" href="${ORIGIN_RE}/blog/published/" />`));
   });
 
   it("emits Open Graph and Twitter metadata", () => {
@@ -264,7 +267,7 @@ describe("article metadata", () => {
         });
         const page = await readFile(join(coverRoot, "blog", "c", "index.html"), "utf8");
         const og = /<meta property="og:image" content="([^"]*)"/.exec(page)?.[1];
-        assert.equal(og, `https://mojtabanorouzie.github.io${expected}`);
+        assert.equal(og, `${SITE.origin}${expected}`);
         assert.ok(!og.endsWith(".svg"));
       } finally {
         await rm(coverRoot, { recursive: true, force: true });
@@ -381,7 +384,7 @@ describe("feeds", () => {
 
   it("lists the homepage and every post in the sitemap", async () => {
     const sitemap = await read("sitemap.xml");
-    assert.match(sitemap, /<loc>https:\/\/mojtabanorouzie\.github\.io\/<\/loc>/);
+    assert.match(sitemap, new RegExp(`<loc>${ORIGIN_RE}/</loc>`));
     assert.match(sitemap, /<loc>[^<]*\/blog\/published\/<\/loc>/);
     // 5 posts + homepage + blog index + tag index + one page per tag
     assert.equal((sitemap.match(/<url>/g) ?? []).length, 5 + 3 + result.tags.length);

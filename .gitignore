@@ -2,12 +2,12 @@
 node_modules/
 resume/node_modules/
 
-# Generated résumé PDF — built in CI from resume/resume.html, shipped in the
-# Pages artifact. Don't commit it by hand.
-assets/Mojtaba-Norouzi-CV.pdf
-
-# Generated social card — built in CI from tools/og/card.html.
-assets/og-image.png
+# The résumé PDF and social card are NOT ignored. They need headless Chromium,
+# which Vercel's build container cannot launch — it lacks libnss3/libnspr4 and
+# gives no root to install them. So .github/workflows/build-assets.yml rebuilds
+# them on GitHub's runner and commits the result, and Vercel just serves the
+# files. Still don't edit them by hand: change resume/resume.html or
+# tools/og/card.html and let the workflow regenerate them.
 
 # Generated blog — built in CI from content/blog/*.md by tools/blog/build.mjs.
 # Edit the Markdown, never the HTML.
