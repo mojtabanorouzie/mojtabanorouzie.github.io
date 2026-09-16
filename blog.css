@@ -26,8 +26,10 @@
      each element's own font, so the sans post header and the serif prose would
      compute different widths and the article would lose its vertical spine.
      The "wide" track lets figures, code and tables breathe past the text. */
-  --measure: 37.5rem;
-  --measure-wide: 45rem;
+  /* Keep paragraphs comfortably readable while giving the article header,
+     navigation and media enough presence on wide desktop screens. */
+  --measure: 42.5rem;
+  --measure-wide: 47.5rem;
 
   --hairline: color-mix(in srgb, var(--border) 75%, transparent);
 }
@@ -241,11 +243,11 @@
    column, media and navigation on the wider one. Both are centred on the same
    axis, so the extra width reads as hierarchy rather than as misalignment. */
 .blog-page--post { max-width: none; }
-.blog-page--post :is(.post__back, .post__header, .toc, .post__footer) {
+.blog-page--post :is(.post__back, .post__footer) {
   max-width: var(--measure);
   margin-inline: auto;
 }
-.blog-page--post :is(.post__cover, .pager, .related) {
+.blog-page--post :is(.post__header, .toc, .post__cover, .pager, .related) {
   max-width: var(--measure-wide);
   margin-inline: auto;
 }
@@ -261,6 +263,7 @@
 .post__title {
   font-size: clamp(2.1rem, 6.2vw, 3.4rem);
   line-height: 1.1;
+  text-wrap: balance;
   margin: 0 0 .75rem;
   /* Long unbroken words (URLs, identifiers) must not push the page sideways. */
   overflow-wrap: break-word;
