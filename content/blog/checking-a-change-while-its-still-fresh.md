@@ -36,6 +36,8 @@ Of course, the check might miss it. One case can work while another fails. But k
 
 ![Charcoal drawing of a branching server network on warm paper, with a small amber pool of light highlighting one section.](/assets/blog/verification-illustration.png "A check tells me something about the behavior I observed at that moment.")
 
+The illustration is how I picture that difference. The network is larger than the small area in the light, just as a system is larger than any single check. The light does not tell me that everything works; it marks the path I actually looked at and gives me one piece of evidence I did not have before.
+
 I also think about the person who runs into a problem before we hear about it. If a check helps us notice something earlier, it may save them that experience. That matters to me alongside the time we might save investigating.
 
 ## What I get from checking
