@@ -34,6 +34,4 @@ await tx.CommitAsync();
 آن‌ها را جدا کنیم، باز هم به همان مشکل برمی‌گردیم — فقط با پنجرهٔ زمانی کوچک‌تری که
 پیدا کردنش سخت‌تر است.
 
-The short version in English: at-least-once delivery makes idempotency a requirement,
-not an optimisation. Design for the duplicate on day one and you never have to hunt it
-down at two in the morning.
+A short summary in English: with at-least-once delivery, the same message may arrive more than once. The system needs a way to handle it again without repeating the change. This is called idempotency. Planning for repeated messages early can help prevent problems later.

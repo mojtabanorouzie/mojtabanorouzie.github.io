@@ -1,23 +1,20 @@
 ---
 title: How this blog is built
-description: A Markdown folder, one Node script, and no framework. The build log for the publishing system you are currently reading.
+description: How a folder of Markdown files and one Node script turn my writing into blog pages.
 date: 2026-08-05
 type: build
 tags: [meta, static-sites, tooling]
 ---
 
-The rest of this site is three files: `index.html`, `styles.css`, `script.js`. No build
-step, no framework, no `node_modules` in sight. I liked it that way, and I did not want
-a blog to be the thing that dragged in a bundler.
+The rest of this site uses three main files: `index.html`, `styles.css`, and `script.js`. It does not need a build step to prepare those pages. I liked this simple setup and wanted to keep it when I added a blog.
 
-So the constraint I set myself was: **adding a post must not make the site heavier for
-the reader, and must not make the repository harder to understand.**
+My goal was simple: adding a post should not make the site slower to load or the project harder to understand.
 
-## What it does
+## How it works
 
-Every post is a Markdown file in `content/blog/`. A Node script reads them at build
-time and writes plain HTML into `blog/`. The browser receives no Markdown, no parser,
-and no JavaScript that is not already on the homepage.
+Every post is a Markdown file in `content/blog/`. Markdown lets me write text with simple marks for headings, links, and lists.
+
+A Node script reads these files and creates HTML pages in `blog/`. This happens before the site is published. The reader's browser gets the finished pages. It does not need extra code to turn Markdown into HTML.
 
 ```text
 content/blog/my-post.md   →   blog/my-post/index.html
@@ -27,14 +24,13 @@ content/blog/my-post.md   →   blog/my-post/index.html
                           →   sitemap.xml, robots.txt
 ```
 
-The generated directory is gitignored. It is rebuilt in CI on every push, immediately
-before the GitHub Pages artifact is uploaded — which is exactly how the résumé PDF on
-the homepage already worked. I did not invent a pipeline; I added a step to one that
-existed.
+Along with each post, the script creates a list of posts and pages for each tag. It also creates feeds for reading apps and a sitemap that lists pages for search engines.
 
-## Frontmatter
+The generated `blog/` folder is not saved in Git, the tool I use to track changes. The publishing process builds it again each time I push a change. It then prepares the files for GitHub Pages, where the site is published. The site already had an automatic process for creating my résumé PDF. I added the blog build to that process.
 
-Each file opens with a small metadata block:
+## Post details
+
+Each file starts with a block called frontmatter. It holds details such as the title, date, and tags:
 
 ```yaml
 ---
@@ -49,52 +45,37 @@ draft: false
 ---
 ```
 
-`type` is the interesting field. I write four different kinds of thing — long articles,
-short notes, reactions to something I read, and build logs like this one — and my first
-instinct was four separate systems. That was wrong. They differ in *presentation*, not
-in structure: same title, same date, same body. One content model with a `type` field
-does the whole job, and the templates decide that a note does not need a reading-time
-badge.
+The `type` field says what kind of post it is. I write long articles, short notes, thoughts about things I read, and posts about things I build.
 
-## The parts worth mentioning
+At first, I thought I needed four separate systems. But all four kinds of post have a title, a date, and a body. One system can handle them. The page templates control how each kind looks. For example, a short note does not need to show a reading time.
 
-**One dependency.** `marked`, for Markdown. It has no transitive dependencies and it
-runs only at build time. I parse the frontmatter myself — it is eight known keys, and
-pulling a full YAML engine in to read eight known keys is not a trade I wanted.
+## A few useful details
 
-**Headings become anchors.** Every `##` gets a stable, Unicode-safe id and a permalink,
-so you can link someone to the paragraph that matters instead of to the top of a
-two-thousand-word page.
+**One extra package.** The build uses `marked` to read Markdown. That package does not require other packages, and it runs only when the site is built. I wrote a small reader for the frontmatter too. The blog uses a limited set of fields, so I did not add a full YAML reader.
 
-**Direction is per block, not per page.** I write in English and in Persian, sometimes
-in the same paragraph. The build tags each block with the direction that most of its
-characters actually want, rather than trusting the first-strong-character rule that
-`dir="auto"` uses — which gets a Persian sentence wrong the moment it opens with an
-English technical term.
+**Links to headings.** Each `##` heading gets an ID and a direct link. The IDs support English and Persian text. This lets someone share a link to a section instead of asking a reader to search the whole page.
 
-**Drafts are not built.** A post with `draft: true` produces no file at all. There is no
-page to leak, no URL to guess, and nothing in the sitemap or feeds. Locally I run:
+**English and Persian text.** I sometimes use both languages in one post. English reads from left to right; Persian reads from right to left. The build checks the text in each block and sets its direction. It uses the main language direction in that block. A single English term at the start of a Persian paragraph should not decide the direction of the whole paragraph.
+
+**Unpublished drafts.** A post marked `draft: true` is left out of the normal build. It has no public page and does not appear in feeds or the sitemap. To preview drafts on my computer, I run:
 
 ```bash
 BLOG_DRAFTS=1 node tools/blog/build.mjs
 ```
 
-which is the only way a draft ever becomes HTML.
+This setting tells the build to include drafts in the local preview.
 
-## What I deliberately left out
+## What I left out
 
-Syntax highlighting, for now. Every option costs either a large build-time grammar
-bundle or client-side JavaScript, and monospaced code with real contrast and generous
-line height reads fine. If I start posting more code than prose I will revisit it — the
-hook is a single function in `tools/blog/markdown.mjs`.
+I have not added syntax highlighting, which uses colors to show different parts of code. It would need extra code or files. For now, code uses a clear font, readable colors, and enough space between lines. If I share more code later, I can change this in `tools/blog/markdown.mjs`.
 
-Comments, analytics, a newsletter, and search. There are a handful of posts here. A
-search box would be decoration.
+I also left out comments, visitor tracking, a newsletter, and search. There are only a few posts, so I have kept the site simple.
 
-Pagination. At some point a chronological index gets silly, but "some point" is a long
-way from here, and building for it now would mean guessing at a problem I do not have.
+The post list is still on one page. I may split it across pages when there are enough posts to need that.
 
-## The whole publishing workflow
+## Writing and publishing
+
+These commands show the three steps I use:
 
 ```bash
 # 1. write
@@ -107,5 +88,6 @@ node tools/blog/build.mjs && python -m http.server 8123
 git add content/blog/something-i-learned.md && git commit && git push
 ```
 
-Step three triggers CI, which rebuilds the site and the PDF and deploys. There is no
-step four, and there is no admin panel to log into — which was the entire objective.
+First, I write the post. Then I build the pages and preview them on my computer. Finally, I save and push the change with Git.
+
+That last step starts the automatic process that builds and publishes the site and PDF. I can publish from my project without logging into a separate writing tool.

@@ -1,51 +1,51 @@
 ---
 title: Checking a Change While It's Still Fresh
-description: A small habit our team picked up after deployments, and why I find it easier to understand a change while I still remember it.
+description: A small habit our team started after making changes, and what I learn by checking the results while I still remember the work.
 date: 2026-09-16
 type: article
 tags: [engineering, production, experience]
 ---
 
-Years ago, our team began checking important changes after deploying them to production. If we changed an API, we called it. If we changed an order flow, we checked an order. It was a small habit, and at first it hardly seemed worth describing. Over time, though, I began to appreciate what it gave me.
+Years ago, our team began checking important changes after putting them into production, the system our users use. If we changed an API, we called it to check the response. If we changed how an order was handled, we checked an order. It was a small habit. At first, it hardly seemed worth writing about. Over time, I began to see its value.
 
-What interested me was the gap between two statements: “It should work” and “I looked at this response, and it matched what I expected.” The first was an expectation based on the work leading up to the deployment. The second came from a small act: looking at what the system actually did after the change went live.
+I became interested in the gap between two statements: “It should work” and “I looked at this response, and it matched what I expected.” The first was based on the work I had done before the change went live. The second came from a simple action: checking what the system actually did after the change.
 
-That check did not prove that everything worked. It gave me one concrete observation while the change was still fresh. When a problem appeared later, reaching the same understanding often meant reconstructing what had happened around the change before I could understand the bug itself. I came to think of that as debugging history.
+That check did not prove that everything worked. It showed me what happened in one case while I still remembered the change. When we found a problem later, we often had to work out what had happened around the change before we could understand the bug. I came to think of this as debugging history: looking back to find out what went wrong.
 
 ## Between “it should work” and “I checked”
 
-At the end of a deployment, I'm usually ready to move on. I've tested the change locally, the tests have passed, and the code has been reviewed. If someone asks whether I checked it in production, “it should work” can feel like a fair answer.
+After a deployment, when the change is live, I'm usually ready to move on. I've tested it on my computer, the tests have passed, and someone has reviewed the code. If someone asks whether I checked it in production, “it should work” can feel like a fair answer.
 
-I still catch myself thinking that. There are reasons to expect the code to work, especially after spending time testing it. But some of those expectations depend on the environment and data I tested with.
+I still catch myself thinking that. After testing the code, I have reasons to expect it to work. But my tests used certain data and settings. The live system may be different.
 
-Production has a way of finding those assumptions. Older records, unexpected inputs, different traffic, and the timing of an external service can all affect what happens. Looking at the affected response or flow after deployment gives me another piece of information about the change I just made.
+Old records, unexpected inputs, more users, or a slow reply from another service can change the result. Checking the response or the steps I changed gives me more information about my work.
 
-Sometimes that takes a couple of minutes. Sometimes it takes longer. I've become more interested in what I learn from those minutes than in how quickly I can call the task finished.
+Sometimes that takes a couple of minutes. Sometimes it takes longer. I care more now about what I learn from those minutes than how quickly I can call the task finished.
 
 ## Debugging history
 
-I can imagine a small change to how a service processes an order. The deployment finishes, nothing looks obviously wrong, and we move on. Two weeks later, someone reports a problem. During the investigation, we start to suspect that the earlier change might be involved.
+Imagine a small change to how a service handles an order. The change goes live, nothing seems wrong, and we move on. Two weeks later, someone reports a problem. As we look into it, we begin to think the earlier change may be part of the cause.
 
-Now we're looking through logs, checking metrics, reviewing deployments, and trying to reproduce what happened. There are questions about the time after the release, too. Did the problem appear immediately? Did it need a particular order or state of the data? Did something else change afterward? Which users encountered it?
+Now we're reading logs, the records of what the system did. We're checking measurements such as error counts, looking at past changes, and trying to make the problem happen again. We also have questions about the time after the change. Did the problem start right away? Did it happen only with certain orders or data? Did something else change later? Which users had the problem?
 
-The code is still there to read. Remembering why I wrote it that way can take longer. What did I expect? Which cases did I consider? Where was I uncertain? Those details are much closer at hand just after I've made the change.
+The code is still there to read. Remembering why I wrote it that way can take longer. What did I expect? Which cases did I think about? What was I unsure about? I remember these details more easily just after making the change.
 
-That's the part I keep coming back to. If a check reveals a problem soon after deployment, I can start looking into it while I still remember the response I expected and the part of the flow I touched.
+That's why an early check matters to me. If it shows a problem, I can look into it while I still remember the response I expected and the steps I changed.
 
-Of course, the check might miss it. One case can work while another fails. But knowing what I actually observed gives me a point of reference. I can be more specific about what happened in that case, without assuming the same was true for every user.
+Of course, the check might miss a problem. One case can work while another fails. But knowing what I actually saw gives me something to compare with later. I can say what happened in that case without thinking it must be true for every user.
 
-![Charcoal drawing of a branching server network on warm paper, with a small amber pool of light highlighting one section.](/assets/blog/verification-illustration.png "A check tells me something about the behavior I observed at that moment.")
+![Drawing of connected servers, with a small area lit in gold.](/assets/blog/verification-illustration.png "A check shows me what happened in the case I looked at.")
 
-The illustration is how I picture that difference. The network is larger than the small area in the light, just as a system is larger than any single check. The light does not tell me that everything works; it marks the path I actually looked at and gives me one piece of evidence I did not have before.
+The picture shows how I think about this. The network is larger than the small area in the light. In the same way, a system is larger than any single check. The light marks the part I looked at. I know more about that part now, but I still have not checked everything.
 
-I also think about the person who runs into a problem before we hear about it. If a check helps us notice something earlier, it may save them that experience. That matters to me alongside the time we might save investigating.
+I also think about the person who has a problem before we hear about it. If a check helps us find it earlier, we may save them that trouble. That matters to me, along with the time we might save looking for the cause.
 
 ## What I get from checking
 
-The checks I have in mind are usually close to the change itself: the part of an API response I edited, the behavior affected by a configuration value, or evidence of what happened at one step of an order flow. A metric can be useful too, when it reflects the behavior I'm looking at.
+My checks usually focus on the part I changed. That might be a value in an API response, the result of changing a setting, or one step in an order. A measurement, such as an error count, can help too if it tells me something about that part of the system.
 
-I'm more comfortable saying “I looked at this response, and it matched what I expected” than saying “everything works.” The first statement tells me what I know. It also leaves room for what I haven't seen.
+I'm more comfortable saying “I looked at this response, and it matched what I expected” than saying “everything works.” The first statement says what I know. It also leaves room for what I haven't seen.
 
-Some behavior only shows up later, or with different data and traffic. A check straight after deployment won't answer all of those questions. I still have uncertainty afterward, but I have an observation to come back to if something changes.
+Some problems only appear later, or with different data or more users. A check just after a change goes live won't answer every question. There are still things I don't know, but I have a result I can look back at if something changes.
 
-I still think “it should work.” These days, before I move on, I like having something more concrete to add: “I looked at this response, and it matched what I expected.”
+I still think “it should work.” These days, before I move on, I like being able to add: “I looked at this response, and it matched what I expected.”

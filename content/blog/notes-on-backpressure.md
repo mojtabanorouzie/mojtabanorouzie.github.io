@@ -1,20 +1,18 @@
 ---
 title: Notes on backpressure (unfinished)
-description: A half-written draft about where queues actually absorb load, kept here so the draft mechanism has something to hide.
+description: An unfinished draft about how queues handle work when it arrives faster than a system can process it.
 date: 2026-08-12
 type: note
 tags: [distributed-systems]
 draft: true
 ---
 
-This post is a draft. It is deliberately left in `content/blog/` and marked
-`draft: true` so the build has something to exclude — no page is generated for it, and
-it appears in neither the sitemap nor the feeds.
+This is a sample draft. It stays in `content/blog/` with `draft: true` so we can check that the build leaves drafts out. It has no public page and does not appear in the sitemap or feeds.
 
-Delete it once there is real work-in-progress to keep here.
+It can be removed when there is a real draft to use instead.
 
-Rough shape of the argument:
+Ideas for the post:
 
-- A queue does not remove load, it relocates it in time.
-- Unbounded queues convert a throughput problem into a latency problem, silently.
-- The useful question is where you want the pain to surface, not how to avoid it.
+- A queue holds work until a system can process it. It does not remove the work.
+- If work keeps arriving too fast, a queue with no size limit can keep growing. Each item then waits longer.
+- Where should the system slow down or limit new work when it cannot keep up?
