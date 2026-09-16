@@ -6,11 +6,13 @@ type: article
 tags: [engineering, production, experience]
 ---
 
-A while ago, our team started checking important changes after deploying them to production. If we changed an API, we called it. If we changed an order flow, we checked an order. The idea was simple enough that it hardly seemed worth describing, but after doing it for a while, I began to appreciate it more.
+Years ago, our team began checking important changes after deploying them to production. If we changed an API, we called it. If we changed an order flow, we checked an order. It was a small habit, and at first it hardly seemed worth describing. Over time, though, I began to appreciate what it gave me.
 
-What stayed with me was how much harder a problem can become when we discover it later. By then, we may need to reconstruct what happened around the change before we can understand the bug itself. I've come to think of that as debugging history.
+What interested me was the gap between two statements: “It should work” and “I looked at this response, and it matched what I expected.” The first was an expectation based on the work leading up to the deployment. The second came from a small act: looking at what the system actually did after the change went live.
 
-## When I think “it should work”
+That check did not prove that everything worked. It gave me one concrete observation while the change was still fresh. When a problem appeared later, reaching the same understanding often meant reconstructing what had happened around the change before I could understand the bug itself. I came to think of that as debugging history.
+
+## Between “it should work” and “I checked”
 
 At the end of a deployment, I'm usually ready to move on. I've tested the change locally, the tests have passed, and the code has been reviewed. If someone asks whether I checked it in production, “it should work” can feel like a fair answer.
 
@@ -44,4 +46,4 @@ I'm more comfortable saying “I looked at this response, and it matched what I 
 
 Some behavior only shows up later, or with different data and traffic. A check straight after deployment won't answer all of those questions. I still have uncertainty afterward, but I have an observation to come back to if something changes.
 
-I still think “it should work.” These days, I feel more comfortable moving on when I can also say what I checked.
+I still think “it should work.” These days, before I move on, I like having something more concrete to add: “I looked at this response, and it matched what I expected.”
