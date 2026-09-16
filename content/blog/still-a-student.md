@@ -1,47 +1,54 @@
 ---
-title: Still a Student
-description: What repeating the same music taught me about learning.
+title: The Art of Being a Student
+description: What music and work have taught me about staying open to learning after gaining experience.
 date: 2026-09-17
 type: article
 tags: [music, learning, experience]
 lang: en
 ---
 
-Sometimes, during group practice, we grew tired of playing the same piece. We had played it so many times that we wanted to move on. Our teacher would tell us that this was when we were only just beginning to gain control of it.
+During group practice, we sometimes grew tired of playing the same piece. We knew it. We had played it many times. Our teacher would tell us that we were only just beginning to gain control of it.
 
-We kept going. After more practice, we felt we could play the piece with our eyes closed.
+We kept going. After more practice, we felt we could play it with our eyes closed.
 
-That feeling has stayed with me. The piece was already familiar before we reached that point. We knew it, but repeating it changed how well we could play it. When I think about why my teacher kept asking for practice, I remember that difference.
+I often return to that memory when I think about being a student. We wanted to move on, but there was still something to learn in the music we already knew. Listening to our teacher meant giving that possibility more time.
 
-He also used to say that giving a 90% performance meant being 200% prepared. Those numbers were his way of showing how much practice a performance could need. Playing a piece once was only part of the work. We had to keep returning to it until our playing became smoother and more confident.
+That leaves me with a question: what does it mean to be a good student when I am no longer a beginner?
 
-At the time, his most common request was simple: practice. Years later, I find myself thinking about what it means to keep doing that after I feel I have understood a lesson.
+## Staying with a lesson
 
-## Going back to what I have learned
+My teacher used to say that giving a 90% performance meant being 200% prepared. Those numbers were his way of describing how much practice a performance could need. Understanding a piece and being ready to play it well were different points in the work.
 
-My teachers gave me ways to return to their lessons at home. They encouraged me to record the class so I could watch and listen again. They also suggested practicing in front of a mirror, where I could see mistakes I might miss while playing.
+The repetition helped me feel that difference. The piece became familiar before my playing became smooth and confident. My teacher kept asking us to work on it beyond the point where we had grown tired of it.
 
-These gave the practice a focus. I had the teacher's example to return to and my own playing to look at. There could still be something to work on in a lesson I already understood.
+I think of this as one part of learning how to be a student: allowing a teacher to see more work in something I feel I already know.
 
-![Drawing of a musician playing a daf in front of a tall mirror.](/assets/blog/practicing-with-a-mirror.png "At home, the mirror gave me another way to check my playing.")
+My teachers also gave me ways to continue that work at home. They encouraged me to record lessons so I could watch and listen again. They suggested practicing in front of a mirror to notice mistakes. These were ways to look at my own playing more closely and return to what they had shown me.
 
-I have started with new teachers and new instruments several times. Each time, there were basics to learn and mistakes to correct. This has made it feel natural to need help at the start. I do not expect to be good at something just because I have experience elsewhere.
+![Drawing of a musician playing a daf in front of a tall mirror.](/assets/blog/practicing-with-a-mirror.png "The mirror gave me another way to notice what still needed work.")
 
-What I keep learning is that being a student also means making time for the work after the lesson. I value daily practice, but I do not always manage it. Some days I play very little; on others, I do not play at all. I keep my instrument beside me and easy to reach to help practice become part of my day.
+Practice still has to fit into real days. Sometimes I play very little, or not at all. I keep my instrument near me and easy to reach to help practice become a habit. I value daily practice, even though I do not always manage it. Being a student includes returning after those missed days too.
 
-That small choice does not make me a perfectly regular student. It gives me an easy place to begin again.
+## Bringing experience into a new lesson
 
-## A lesson I use at work
+I have changed daf teachers and joined a new group. I have also started learning other instruments. Each time, I brought some experience with me, but there were basics to learn again.
 
-Some of my managers have been teachers too. They helped me look more carefully at how I listened and spoke. I might have heard someone incorrectly, explained myself poorly, or misunderstood what they meant.
+Those beginnings have made it feel natural to need help. I do not expect to play a new instrument well just because I have played another one for years. A new teacher can also help me see something I missed in an instrument I already know.
 
-One lesson was that a comment about my work does not have to be an attack on me. Someone can point out a problem in what I have done without making it a judgment about who I am.
+Experience can make this more complicated. Once I have a familiar way of doing something, another way may take more effort to understand. There is a difference between bringing what I know into a lesson and letting it decide, before the lesson begins, what I am willing to learn.
 
-I understand that idea. Using it in a conversation still asks something of me: listening to the comment, checking what the person means, and looking at the work before treating the words as a personal attack.
+I want my experience to help me ask better questions. I also want to leave room for an answer I did not expect. The basics may be familiar, but I can still benefit from someone showing them to me again.
 
-This is where I see a connection with music practice. A clear explanation gives me something to understand. Daily life gives me chances to work on it. I can return to the same lesson in another conversation, just as I return to a piece of music.
+## Hearing a comment about my work
 
-I want to keep that attitude at work, with family, and with friends. There are things I understand but still need to get better at doing. Staying open to another person's help is part of that. So is giving myself time to practice what they have helped me see.
+At work, some of my managers have been teachers too. They helped me pay closer attention to how I listened and spoke. I might have heard something wrong, explained myself poorly, or misunderstood what another person meant.
 
-When I remember those group practices, I remember how tired we were of repeating the piece, and how different it felt after we kept going. That is the experience I carry with me: there was still something to learn in the part we wanted to leave behind.
+One lesson was that a problem in my work does not have to become a judgment about me as a person. Someone can point out a mistake in what I have done without attacking who I am.
 
+Understanding that difference helps me respond to feedback. I can listen to the comment, check what the person means, and look at the work itself. I do not have to agree with every comment to take time to understand it.
+
+This feels connected to those music lessons. In both places, someone may notice work that I have not noticed yet. Staying open long enough to understand their point gives me something to try. Then comes the practice of using it, whether I am holding an instrument or having another conversation.
+
+That is what the art of being a student means to me: learning how to listen, accept help, and keep working on something after it starts to feel familiar. These are things I want to keep practicing at work, with family, and with friends.
+
+I remember being tired of that piece, and later feeling we could play it with our eyes closed. Being a student did not end when we knew the music. It was part of how we learned to play it well.
