@@ -6,14 +6,14 @@
 
   <!-- ===== SEO / META ===== -->
   <title>Mojtaba Norouzi — Senior Software Engineer &amp; Persian Musician</title>
-  <meta name="description" content="Mojtaba Norouzi — Senior Software Engineer, backend &amp; distributed systems (.NET, ASP.NET Core, Kafka, Kubernetes, geospatial SQL Server) with an M.Sc. in AI, and a Persian percussion &amp; string player (Daf, Tar, Tonbak, Setar)." />
+  <meta name="description" content="Mojtaba Norouzi — Senior Software Engineer building .NET backend and distributed systems since 2018. Production migrations, Kafka and SQL Server; AI research and Persian music." />
   <meta name="author" content="Mojtaba Norouzi" />
   <meta name="theme-color" content="#0e1116" />
 
   <!-- Open Graph -->
   <meta property="og:type" content="website" />
   <meta property="og:title" content="Mojtaba Norouzi — Senior Software Engineer &amp; Persian Musician" />
-  <meta property="og:description" content="Distributed systems by day, Persian rhythms by night. One engineer, two crafts." />
+  <meta property="og:description" content="Senior .NET backend engineer working on production migrations, reliability and event-driven systems. M.Sc. in AI; Persian percussion and strings." />
   <meta property="og:url" content="https://mojtaba.tech/" />
   <meta property="og:image" content="https://mojtaba.tech/assets/og-image.png" />
   <meta name="twitter:card" content="summary_large_image" />
@@ -83,9 +83,9 @@
           <span class="accent">daf</span> — engineering and music, two expressions of the same pattern-sense.
         </p>
         <p class="hero__intro">
-          Senior .NET backend engineer with 8 years building backend systems for e-commerce and
-          logistics — the last four on event-driven distributed systems at scale — an M.Sc. in AI,
-          and a player of Daf, Tar, Tonbak, and Setar.
+          I've built commercial backend systems since 2018, with a focus on C#/.NET, Kafka,
+          and SQL Server. At Okala, I work on production migrations and reliable delivery
+          operations. I also hold an M.Sc. in AI and play Daf, Tar, Tonbak, and Setar.
         </p>
 
         <div class="hero__cta">
@@ -138,11 +138,17 @@
         <span class="role__meta">Promoted from Software Engineer · Feb 2022 — Sep 2024</span>
       </p>
 
+      <p>
+        Okala is an online grocery platform handling 150K+ orders daily and over 300K during
+        campaigns. My work spans fulfillment, logistics, and delivery operations. The projects
+        below cover both roles, including shared delivery with the team.
+      </p>
+
       <h3 class="subhead">Core skills</h3>
       <ul class="chips" aria-label="Core technical skills">
         <li>C# / .NET 6–10</li>
         <li>ASP.NET Core</li>
-        <li>EF · LINQ · T-SQL</li>
+        <li>EF Core · LINQ · T-SQL</li>
         <li>Clean Architecture</li>
         <li>Domain-Driven Design</li>
         <li>Event-Driven Design</li>
@@ -154,42 +160,48 @@
         <li>Testcontainers · xUnit</li>
         <li>Prometheus · Elastic APM</li>
         <li>Docker · Kubernetes</li>
-        <li>CI/CD · Agile</li>
+        <li>GitLab CI/CD</li>
       </ul>
 
       <h3 class="subhead">Selected projects</h3>
       <div class="cards">
         <article class="card">
-          <h4>Four Generations off the Monolith</h4>
-          <p>Owned execution of a multi-year migration off the fulfillment monolith — building its replacements from zero, moving every operational flow across, then decommissioning the originals. Production incidents fell from near-daily to one or two a month.</p>
+          <h4>Replacing Two Live Platforms</h4>
+          <p>I owned the replacement of two live platforms, first fulfillment and then delivery: building their replacements, migrating every operational flow, and retiring both legacy systems. As services moved from Windows Server to Kubernetes, production incidents fell from near-daily to one or two a month.</p>
           <ul class="tags"><li>.NET</li><li>Kubernetes</li><li>DDD · EDD</li></ul>
         </article>
         <article class="card">
-          <h4>High-Throughput Logistics APIs</h4>
-          <p>Designed and built the APIs behind 150K+ orders a day — over 300K during campaigns: around 200 versioned REST endpoints running four versions of one API surface side by side, integrating third-party logistics over Kafka and orchestrating couriers, the call center, and customers.</p>
+          <h4>Delivery Operations APIs</h4>
+          <p>With the team, I built four independently deployable .NET 10 services exposing around 200 versioned REST endpoints. Four versions of the store API run side by side, with JWT authentication, role-based access, and per-user rate limiting.</p>
           <ul class="tags"><li>REST · API versioning</li><li>Kafka</li><li>ASP.NET Core</li></ul>
         </article>
         <article class="card">
           <h4>AutoRadius — Rules Over Guesswork</h4>
-          <p>Replaced hand-maintained, per-store delivery radiuses with a rules engine that encodes operations agents' expertise, evaluating time of day, weather, and pending-order backlog to adjust each store automatically. Its pending-order signal is kept live by re-partitioning order events onto one ordered Kafka partition per store.</p>
+          <p>I designed a rules engine to replace manual store delivery-radius configuration, using time of day, weather, and pending-order backlog. Repartitioning Kafka events by store preserves per-store ordering and avoids contention on a shared database table.</p>
           <ul class="tags"><li>Rules engine</li><li>Kafka</li><li>Operations</li></ul>
         </article>
         <article class="card">
           <h4>Geospatial Store Coverage</h4>
-          <p>Store coverage and nearby-store search built on SQL Server spatial types with NetTopologySuite (SRID 4326) — delivery-radius coverage, polygon non-coverage areas, and distance-ranked results — evolved across four side-by-side API versions.</p>
+          <p>I built delivery coverage and nearby-store search with SQL Server spatial types and NetTopologySuite: delivery radiuses, exclusion polygons, and distance-ranked results.</p>
           <ul class="tags"><li>NetTopologySuite</li><li>SQL Server spatial</li><li>Geospatial</li></ul>
         </article>
         <article class="card">
           <h4>A Kafka Backbone with a Transactional Outbox</h4>
-          <p>A 40-topic event backbone with at-least-once delivery and per-entity ordering — every message keyed by its business entity ID. Failed events retry with backoff, then land in a persisted outbox a sweeper reprocesses every two minutes; an atomic Redis SET NX guard stops duplicate notifications across replicas.</p>
+          <p>I led work on a 40-topic Kafka event backbone with at-least-once delivery and per-entity ordering. Reliability measures include consumer retries with backoff, a persisted transactional outbox, and Redis-based customer-notification deduplication across service replicas.</p>
           <ul class="tags"><li>Kafka</li><li>Transactional outbox</li><li>Redis</li></ul>
         </article>
         <article class="card">
           <h4>Tests That Boot Real Infrastructure</h4>
-          <p>A test suite across unit, integration, and Gherkin BDD tiers — the integration harness boots real SQL Server and Redis containers via Testcontainers, hosts two full ASP.NET Core apps, and drives them over real HTTP through typed clients, sharded across parallel CI jobs.</p>
+          <p>I built an integration harness that runs real SQL Server and Redis containers, hosts two ASP.NET Core applications, and exercises them over HTTP. Tests run in parallel GitLab CI jobs. Prometheus metrics and distributed tracing support diagnosis across all four production services.</p>
           <ul class="tags"><li>Testcontainers</li><li>xUnit · BDD</li><li>GitLab CI</li></ul>
         </article>
       </div>
+
+      <p>
+        Alongside implementation, I define engineering standards and a spec-driven,
+        AI-assisted development workflow, and mentor junior and mid-level engineers through
+        code reviews, design reviews, and technical unblocking.
+      </p>
 
       <h3 class="subhead">Timeline</h3>
       <ol class="timeline">
@@ -201,8 +213,8 @@
         </li>
         <li>
           <span class="timeline__year">Oct 2018 — Feb 2022</span>
-          <span class="timeline__title">Back-End Developer</span>
-          <span class="timeline__desc">Capital-markets software company, Tehran · ASP.NET, RabbitMQ, SQL Server &amp; Redis</span>
+          <span class="timeline__title">Backend Engineer</span>
+          <span class="timeline__desc">Capital-markets software company, Tehran · C#/ASP.NET services for stakeholder conferencing, automated reporting, and real-time dashboards; RabbitMQ, SQL Server &amp; Redis</span>
         </li>
         <li>
           <span class="timeline__year">Sep 2017 — Oct 2018</span>
@@ -272,7 +284,7 @@
         <article class="card card--edu">
           <h4>M.Sc. — Artificial Intelligence</h4>
           <p class="role__meta">Shahid Beheshti University · 2016 – 2019</p>
-          <p>Focus on machine learning and reinforcement learning, with research in transfer learning for traffic-signal control.</p>
+          <p>Research in the Multi-Agent Systems Lab on transfer learning for reinforcement learning, applied to traffic-signal control.</p>
         </article>
         <article class="card card--edu">
           <h4>B.Sc. — Computer Engineering</h4>
@@ -284,8 +296,9 @@
       <h3 class="subhead">Publication</h3>
       <ul class="highlights">
         <li>
-          “Experience Classification for Transfer Learning in Traffic Signal Control” —
-          <a href="https://link.springer.com/article/10.1007/s11227-020-03287-x" target="_blank" rel="noopener">Springer, 2020</a>
+          Norouzi, M., Abdoos, M. &amp; Bazzan, A. L. C.
+          <a href="https://doi.org/10.1007/s11227-020-03287-x" target="_blank" rel="noopener">Experience classification for transfer learning in traffic signal control</a>.
+          <em>The Journal of Supercomputing</em>, 77, 780–795 (2021; online 2020).
         </li>
       </ul>
     </section>
@@ -316,7 +329,7 @@
         <span class="section__index">06</span>
         <h2 id="contact-title">Get in touch</h2>
       </div>
-      <p class="lead">Open to engineering roles and musical collaborations alike.</p>
+      <p class="lead">Based in Tehran and open to relocation to the EU for senior backend/.NET roles. Also open to musical collaborations.</p>
       <div class="contact__links">
         <a class="btn btn--primary" href="mailto:mojtaba.norouzie@gmail.com">mojtaba.norouzie@gmail.com</a>
         <a class="btn" href="https://github.com/mojtabanorouzie" target="_blank" rel="noopener">GitHub</a>

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Mojtaba Norouzi — Résumé</title>
+  <title>Mojtaba Norouzi - Senior Backend Engineer CV</title>
   <link rel="stylesheet" href="resume.css" />
 </head>
 <body>
@@ -16,42 +16,34 @@
 
     <header class="head">
       <h1>Mojtaba Norouzi</h1>
-      <p class="role">Senior Software Engineer · Backend &amp; Distributed Systems</p>
+      <p class="role">Senior Software Engineer · .NET Backend &amp; Distributed Systems</p>
       <ul class="contact">
-        <li><a href="mailto:mojtaba.norouzie@gmail.com">mojtaba.norouzie@gmail.com</a></li>
-        <li>+98 937 176 2407</li>
         <li>Tehran, Iran — open to relocation (EU)</li>
-        <li><a href="https://www.linkedin.com/in/mojtabanorouzi/">linkedin.com/in/mojtabanorouzi</a></li>
-        <li><a href="https://github.com/mojtabanorouzie">github.com/mojtabanorouzie</a></li>
+        <li><a href="mailto:mojtaba.norouzie@gmail.com">mojtaba.norouzie@gmail.com</a> · +98 937 176 2407</li>
+        <li><a href="https://www.linkedin.com/in/mojtabanorouzi/">linkedin.com/in/mojtabanorouzi</a> · <a href="https://github.com/mojtabanorouzie">github.com/mojtabanorouzie</a></li>
       </ul>
     </header>
 
     <section>
       <h2>Summary</h2>
       <p>
-        Backend engineer with 8 years building scalable, high-throughput e-commerce, logistics
-        and financial-services systems — the last four at Okala, one of Iran's largest online
-        grocery platforms, handling 150K+ orders a day and over 300K during campaigns. Twice
-        built the replacement for a live production platform from scratch, migrated every
-        operational flow onto it, and retired the original; now building a .NET 10
-        delivery-operations platform of four independently deployable services — around 200
-        versioned REST endpoints, a 40-topic Kafka event backbone with per-entity ordering and a
-        transactional outbox, and geospatial store coverage on SQL Server. Depth in .NET,
-        distributed systems, event-driven architecture and domain-driven design, backed by an
-        M.Sc. in Artificial Intelligence and a peer-reviewed publication on reinforcement
-        learning.
+        Backend engineer building commercial systems since 2018, with depth in C#/.NET,
+        Kafka and SQL Server. Owns production migrations from implementation through cutover
+        and retirement of legacy systems, with experience improving reliability in grocery
+        fulfillment and delivery. Combines hands-on distributed-systems engineering with
+        technical mentoring. Holds an M.Sc. in Artificial Intelligence with published
+        reinforcement-learning research.
       </p>
     </section>
 
     <section>
       <h2>Core Technical Skills</h2>
       <ul class="skills">
-        <li><strong>Languages &amp; frameworks:</strong> C#, .NET 6-10, .NET Framework, ASP.NET Core, Entity Framework Core, LINQ, Polly</li>
-        <li><strong>Architecture:</strong> Clean Architecture, Domain-Driven Design (DDD), Event-Driven Design (EDD), microservices &amp; modular monoliths, REST API design &amp; versioning, transactional outbox</li>
-        <li><strong>Messaging &amp; data:</strong> Apache Kafka, RabbitMQ, Redis, SQL Server, T-SQL, geospatial data (NetTopologySuite, SQL Server spatial types)</li>
-        <li><strong>Observability:</strong> Prometheus, Elastic APM distributed tracing, Serilog structured logging, Elasticsearch</li>
-        <li><strong>Infrastructure &amp; delivery:</strong> Kubernetes, Docker, GitLab CI/CD, Git, monorepo, Hangfire, production on-call</li>
-        <li><strong>Testing &amp; practice:</strong> xUnit, Testcontainers, Moq, BDD (Gherkin/Reqnroll), spec-driven AI-assisted development, Agile (Scrum)</li>
+        <li><strong>Backend:</strong> C#, .NET 6-10, ASP.NET Core, Entity Framework Core, LINQ</li>
+        <li><strong>Architecture:</strong> Domain-Driven Design, Clean Architecture, event-driven systems, microservices, modular monoliths, versioned REST APIs, transactional outbox</li>
+        <li><strong>Data &amp; messaging:</strong> SQL Server, T-SQL, Apache Kafka, RabbitMQ, Redis, NetTopologySuite</li>
+        <li><strong>Delivery &amp; testing:</strong> Docker, Kubernetes, GitLab CI/CD, Git, xUnit, Testcontainers, Moq, BDD (Gherkin/Reqnroll)</li>
+        <li><strong>Observability:</strong> Prometheus, Elastic APM, Serilog, Elasticsearch, production on-call</li>
       </ul>
     </section>
 
@@ -63,25 +55,25 @@
         <p class="job__meta">Tehran, Iran · Oct 2024 - Present</p>
         <p class="job__meta">Promoted from Software Engineer · Feb 2022 - Sep 2024</p>
         <p class="job__context">
-          Okala is the online retail arm of Golrang Industrial Group (~100 subsidiaries,
-          ~50,000 employees). Scope progression: Fulfillment &amp; Delivery → Logistics →
-          Operational Excellence.
+          Online grocery platform handling 150K+ orders daily and over 300K during campaigns.
+          Work spans fulfillment, logistics and delivery operations; achievements below cover both roles.
         </p>
         <ul>
-          <li>Owned execution of a multi-year migration off the fulfillment monolith across four platform generations — Fulfillment &amp; Delivery services on Kubernetes, then Logistics, then Operational Excellence — carrying each migration end to end.</li>
-          <li>Twice built the replacement for a live production platform from zero — first fulfillment, then delivery — took each to production, migrated every operational flow across, and decommissioned both legacy systems, retiring the monolith's operational surface entirely.</li>
-          <li>Improved platform reliability — production incidents fell from near-daily to 1-2 per month — by migrating off Windows Server infrastructure and its maintenance windows onto cloud-native containerized services on Kubernetes.</li>
-          <li>Built, with the team, the current delivery-operations platform — four independently deployable .NET 10 services (two REST APIs, two Kafka consumer workers) in one Clean Architecture monorepo — exposing around 200 versioned REST endpoints, with four versions of the store API running side by side behind JWT auth, role-based authorization and per-user rate limiting.</li>
-          <li>Led the platform's Kafka event-backbone work — a 40-topic backbone across the four services — with at-least-once delivery and per-entity ordering by keying every message on its business entity ID.</li>
-          <li>Hardened event delivery against failure: consumer retry with backoff, a persisted transactional outbox whose sweeper reprocesses failed events every 2 minutes, and an atomic Redis SET NX guard that prevents duplicate customer notifications across service replicas.</li>
-          <li>Designed AutoRadius, a rules engine replacing manual per-store delivery-radius configuration — encoding operations agents' expertise as rules over time of day, weather and pending-order backlog — fed by a Kafka pipeline that re-partitions order-keyed events onto one ordered partition per store, avoiding lock contention on a shared table.</li>
-          <li>Built geospatial store coverage and nearby-store search on SQL Server spatial types with NetTopologySuite (SRID 4326) — delivery-radius coverage, polygon non-coverage areas and distance-ranked results.</li>
-          <li>Evolved two SQL Server schemas through EF Core migrations, split reads onto a read-replica DbContext, and wrote a NOLOCK query extension that keeps read-uncommitted hot paths compatible with EF Core's retrying execution strategy.</li>
-          <li>Stood up the containerized integration harness behind a three-tier test suite — real SQL Server and Redis via Testcontainers, two full ASP.NET Core hosts driven over real HTTP through typed clients, sharded across parallel GitLab CI jobs.</li>
-          <li>Instrumented all four services with dimensional Prometheus business metrics, structured Serilog logging shipped to Elasticsearch, and Elastic APM distributed traces propagated across HTTP, EF Core, Redis and Kafka.</li>
-          <li>Planned and executed the platform's phased .NET 8 → .NET 10 migration across all four services.</li>
-          <li>Codified the team's engineering standards in a project constitution and built the spec-driven, AI-assisted development workflow behind them; delivery throughput held steady (tracked in Jira) after headcount dropped from five engineers to three.</li>
-          <li>Mentor mid-level and junior engineers through code review, design review and day-to-day technical unblocking.</li>
+          <li>Owned end-to-end replacement of two live platforms, first fulfillment and then delivery: built the replacements, migrated all operational flows and decommissioned both legacy systems.</li>
+          <li>Migrated services from Windows Server to containers on Kubernetes; production incidents fell from near-daily to 1-2 per month.</li>
+          <li>Built the delivery-operations platform with the team: four independently deployable .NET 10 services and around 200 versioned REST endpoints. Supported four concurrent store API versions with JWT authentication, role-based access and per-user rate limiting.</li>
+          <li>Led a 40-topic Kafka event backbone with at-least-once delivery and per-entity ordering. Added retry with backoff, a persisted transactional outbox and Redis-based customer-notification deduplication across replicas.</li>
+        </ul>
+      </article>
+
+      <article class="job job--continued">
+        <h3>Okala - continued</h3>
+        <p class="job__context">Selected engineering contributions across both roles</p>
+        <ul>
+          <li>Designed AutoRadius to replace manual store delivery-radius configuration with rules based on time, weather and order backlog. Repartitioned Kafka events by store to preserve ordering and avoid shared-table lock contention.</li>
+          <li>Built delivery coverage and nearby-store search using SQL Server spatial types and NetTopologySuite, including exclusion polygons and distance-ranked results.</li>
+          <li>Built integration tests using real SQL Server and Redis containers and two ASP.NET Core hosts over HTTP; parallelised execution in GitLab CI. Added Prometheus metrics and distributed tracing across all four services.</li>
+          <li>Defined engineering standards and a spec-driven, AI-assisted development workflow. Mentor junior and mid-level engineers through code reviews, design reviews and technical unblocking.</li>
         </ul>
       </article>
 
@@ -89,9 +81,8 @@
         <h3>Backend Engineer</h3>
         <p class="job__meta">Capital-markets software company · Tehran, Iran · Oct 2018 - Feb 2022</p>
         <ul>
-          <li>Built backend services for an online meeting and conferencing platform connecting stock-market participants, launched during the COVID-19 period to replace in-person stakeholder meetings.</li>
-          <li>Developed and maintained core services in C# and ASP.NET, backed by RabbitMQ, SQL Server and Redis.</li>
-          <li>Built internal operations tooling, including automated reporting and real-time dashboards.</li>
+          <li>Built C#/ASP.NET backend services for a stakeholder conferencing platform launched during COVID-19 to replace in-person capital-markets meetings, using RabbitMQ, SQL Server and Redis.</li>
+          <li>Developed automated reporting and real-time dashboards for internal operations.</li>
         </ul>
       </article>
     </section>
@@ -113,9 +104,10 @@
       <h2>Publication</h2>
       <ul>
         <li>
-          “Experience Classification for Transfer Learning in Traffic Signal Control” —
-          <em>The Journal of Supercomputing</em> (Springer), 2020.
-          <a href="https://link.springer.com/article/10.1007/s11227-020-03287-x">link.springer.com/article/10.1007/s11227-020-03287-x</a>
+          Norouzi, M., Abdoos, M. &amp; Bazzan, A. L. C.
+          “Experience classification for transfer learning in traffic signal control.”
+          <em>The Journal of Supercomputing</em>, 77, 780-795 (2021; online 2020).
+          <a href="https://doi.org/10.1007/s11227-020-03287-x">DOI: 10.1007/s11227-020-03287-x</a>
         </li>
       </ul>
     </section>
