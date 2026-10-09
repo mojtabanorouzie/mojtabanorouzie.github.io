@@ -231,7 +231,7 @@ img { max-width: 100%; height: auto; }
 .concerts__gallery { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(1rem, 3vw, 2.5rem); }
 .concert { margin: 0; min-width: 0; }
 .concert__image { position: relative; display: block; padding: clamp(.65rem, 2vw, 1.2rem); border: 1px solid var(--border); border-radius: var(--radius); background: var(--bg-elev); text-decoration: none; overflow: hidden; transition: border-color var(--transition), box-shadow var(--transition); }
-.concert__image img { display: block; width: 100%; aspect-ratio: 3 / 4; object-fit: contain; border-radius: 5px; }
+.concert__image img { display: block; width: 100%; height: clamp(360px, 42vw, 580px); object-fit: contain; border-radius: 5px; }
 .concert__image:hover, .concert__image:focus-visible { border-color: var(--accent); box-shadow: var(--shadow); }
 .concert__expand { position: absolute; bottom: 1.8rem; right: 1.8rem; padding: .4rem .75rem; border-radius: 999px; background: #0e1116; color: #e8ecf2; font-size: .75rem; box-shadow: 0 2px 12px #0005; }
 .concert figcaption { display: flex; gap: .8rem; padding: 1rem .15rem 0; }
