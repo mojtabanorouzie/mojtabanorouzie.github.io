@@ -6,120 +6,86 @@
   <link rel="stylesheet" href="resume.css" />
 </head>
 <body>
-  <!-- Print-optimized résumé. Source of truth for the generated PDF.
-       Edit this file; CI re-renders it to assets/Mojtaba-Norouzi-CV.pdf.
-
-       Structure note: every block is single-column and puts its heading before its
-       metadata, so an ATS text parser reads title → employer → dates in that order.
-       Do not reintroduce side-by-side columns here. -->
-  <main class="sheet">
-
-    <header class="head">
-      <h1>Mojtaba Norouzi</h1>
-      <p class="role">Senior Software Engineer · .NET Backend &amp; Distributed Systems</p>
-      <ul class="contact">
-        <li>Tehran, Iran — open to relocation (EU)</li>
-        <li><a href="mailto:mojtaba.norouzie@gmail.com">mojtaba.norouzie@gmail.com</a> · +98 937 176 2407</li>
-        <li><a href="https://www.linkedin.com/in/mojtabanorouzi/">linkedin.com/in/mojtabanorouzi</a> · <a href="https://github.com/mojtabanorouzie">github.com/mojtabanorouzie</a></li>
-      </ul>
-    </header>
-
-    <section>
-      <h2>Summary</h2>
-      <p>
-        Backend engineer building commercial systems since 2018, with depth in C#/.NET,
-        Kafka and SQL Server. Owns production migrations from implementation through cutover
-        and retirement of legacy systems, with experience improving reliability in grocery
-        fulfillment and delivery. Combines hands-on distributed-systems engineering with
-        technical mentoring. Holds an M.Sc. in Artificial Intelligence with published
-        reinforcement-learning research.
-      </p>
-    </section>
-
-    <section>
-      <h2>Core Technical Skills</h2>
-      <ul class="skills">
-        <li><strong>Backend:</strong> C#, .NET 6-10, ASP.NET Core, Entity Framework Core, LINQ</li>
-        <li><strong>Architecture:</strong> Domain-Driven Design, Clean Architecture, event-driven systems, microservices, modular monoliths, versioned REST APIs, transactional outbox</li>
-        <li><strong>Data &amp; messaging:</strong> SQL Server, T-SQL, Apache Kafka, RabbitMQ, Redis, NetTopologySuite</li>
-        <li><strong>Delivery &amp; testing:</strong> Docker, Kubernetes, GitLab CI/CD, Git, xUnit, Testcontainers, Moq, BDD (Gherkin/Reqnroll)</li>
-        <li><strong>Observability:</strong> Prometheus, Elastic APM, Serilog, Elasticsearch, production on-call</li>
-      </ul>
-    </section>
-
-    <section>
-      <h2>Experience</h2>
-
-      <article class="job">
-        <h3>Senior Software Engineer — Okala (Golrang Industrial Group)</h3>
-        <p class="job__meta">Tehran, Iran · Oct 2024 - Present</p>
-        <p class="job__meta">Promoted from Software Engineer · Feb 2022 - Sep 2024</p>
-        <p class="job__context">
-          Online grocery platform handling 150K+ orders daily and over 300K during campaigns.
-          Work spans fulfillment, logistics and delivery operations; achievements below cover both roles.
-        </p>
-        <ul>
-          <li>Owned end-to-end replacement of two live platforms, first fulfillment and then delivery: built the replacements, migrated all operational flows and decommissioned both legacy systems.</li>
-          <li>Migrated services from Windows Server to containers on Kubernetes; production incidents fell from near-daily to 1-2 per month.</li>
-          <li>Built the delivery-operations platform with the team: four independently deployable .NET 10 services and around 200 versioned REST endpoints. Supported four concurrent store API versions with JWT authentication, role-based access and per-user rate limiting.</li>
-          <li>Led a 40-topic Kafka event backbone with at-least-once delivery and per-entity ordering. Added retry with backoff, a persisted transactional outbox and Redis-based customer-notification deduplication across replicas.</li>
-        </ul>
-      </article>
-
-      <article class="job job--continued">
-        <h3>Okala - continued</h3>
-        <p class="job__context">Selected engineering contributions across both roles</p>
-        <ul>
-          <li>Designed AutoRadius to replace manual store delivery-radius configuration with rules based on time, weather and order backlog. Repartitioned Kafka events by store to preserve ordering and avoid shared-table lock contention.</li>
-          <li>Built delivery coverage and nearby-store search using SQL Server spatial types and NetTopologySuite, including exclusion polygons and distance-ranked results.</li>
-          <li>Built integration tests using real SQL Server and Redis containers and two ASP.NET Core hosts over HTTP; parallelised execution in GitLab CI. Added Prometheus metrics and distributed tracing across all four services.</li>
-          <li>Defined engineering standards and a spec-driven, AI-assisted development workflow. Mentor junior and mid-level engineers through code reviews, design reviews and technical unblocking.</li>
-        </ul>
-      </article>
-
-      <article class="job">
-        <h3>Backend Engineer</h3>
-        <p class="job__meta">Capital-markets software company · Tehran, Iran · Oct 2018 - Feb 2022</p>
-        <ul>
-          <li>Built C#/ASP.NET backend services for a stakeholder conferencing platform launched during COVID-19 to replace in-person capital-markets meetings, using RabbitMQ, SQL Server and Redis.</li>
-          <li>Developed automated reporting and real-time dashboards for internal operations.</li>
-        </ul>
-      </article>
-    </section>
-
-    <section>
-      <h2>Education &amp; Research</h2>
-      <article class="edu">
-        <h3>M.Sc. in Artificial Intelligence</h3>
-        <p>Shahid Beheshti University · 2016 - 2019</p>
-        <p>Multi-Agent Systems (MAS) Lab — thesis research on transfer learning for reinforcement learning.</p>
-      </article>
-      <article class="edu">
-        <h3>B.Sc. in Computer Engineering</h3>
-        <p>Shahrood University of Technology · 2012 - 2016</p>
-      </article>
-    </section>
-
-    <section>
-      <h2>Publication</h2>
+<main class="sheet">
+  <header class="head">
+    <h1>Mojtaba Norouzi</h1>
+    <p class="role">Senior Software Engineer · .NET Backend &amp; Distributed Systems</p>
+    <ul class="contact">
+      <li>Tehran, Iran - open to EU relocation</li>
+      <li><a href="mailto:mojtaba.norouzie@gmail.com">mojtaba.norouzie@gmail.com</a> · +98 937 176 2407</li>
+      <li><a href="https://mojtaba.tech/">mojtaba.tech</a> · <a href="https://www.linkedin.com/in/mojtabanorouzi/">linkedin.com/in/mojtabanorouzi</a> · <a href="https://github.com/mojtabanorouzie">github.com/mojtabanorouzie</a></li>
+    </ul>
+  </header>
+  <section>
+    <h2>Profile</h2>
+    <p>Senior software engineer building .NET backend systems since 2018. Owned delivery of two production-platform replacements at Okala, with experience in Kafka-based systems, reliability and technical mentoring. M.Sc. in Artificial Intelligence with published reinforcement-learning research.</p>
+  </section>
+  <section>
+    <h2>Core Skills</h2>
+    <p class="skill-summary">C# · .NET / ASP.NET Core · SQL Server · Entity Framework Core · Apache Kafka · Redis · Distributed systems · Docker / Kubernetes · Integration testing</p>
+  </section>
+  <section>
+    <h2>Experience</h2>
+    <article class="job">
+      <h3>Senior Software Engineer - Okala</h3>
+      <p class="job__meta">Tehran, Iran · Oct 2024 - Present</p>
+      <p class="job__context">Online grocery business in Golrang Industrial Group, handling 150K+ orders daily and over 300K during campaigns. Focus: delivery operations.</p>
       <ul>
-        <li>
-          Norouzi, M., Abdoos, M. &amp; Bazzan, A. L. C.
-          “Experience classification for transfer learning in traffic signal control.”
-          <em>The Journal of Supercomputing</em>, 77, 780-795 (2021; online 2020).
-          <a href="https://doi.org/10.1007/s11227-020-03287-x">DOI: 10.1007/s11227-020-03287-x</a>
-        </li>
+        <li>Owned delivery of a replacement delivery platform: built the replacement, migrated operational workflows and retired the legacy system.</li>
+        <li>Built four independently deployable .NET services with the team, with approximately 200 versioned REST endpoints and four concurrent store API versions. Led the migration from .NET 8 to .NET 10.</li>
+        <li>Led a 40-topic Kafka backbone with at-least-once delivery and per-entity ordering; added retry and outbox handling and Redis-based notification deduplication.</li>
+        <li>Replaced manual store delivery-radius configuration with AutoRadius, a rules engine using time, weather and order backlog. Built geospatial coverage and nearby-store search with SQL Server and NetTopologySuite.</li>
+        <li>Built integration tests with real SQL Server and Redis containers and two ASP.NET Core hosts; parallelised execution in GitLab CI. Worked with the team on metrics and distributed tracing.</li>
+        <li>Defined engineering standards and mentored junior and mid-level engineers through code reviews, design discussions and technical problem-solving.</li>
       </ul>
-    </section>
-
-    <section>
-      <h2>Languages</h2>
-      <ul class="skills">
-        <li><strong>Persian:</strong> Native</li>
-        <li><strong>English:</strong> Professional working proficiency — used daily at work</li>
+    </article>
+    <article class="job">
+      <h3>Software Engineer - Okala</h3>
+      <p class="job__meta">Tehran, Iran · Feb 2022 - Sep 2024 · Promoted to Senior Software Engineer</p>
+      <ul>
+        <li>Built a replacement fulfillment platform, migrated operational workflows and retired its predecessor during the move away from the monolith.</li>
+        <li>Led the migration from Windows Server to containerised services on Kubernetes. Following the migration, production incidents became rare, down from almost daily.</li>
+        <li>Developed and supported backend services across fulfillment, delivery and logistics, including SQL Server schema changes, production on-call and delivery through GitLab CI.</li>
       </ul>
-    </section>
-
-  </main>
+    </article>
+    <article class="job job--continued">
+      <h3>Backend Engineer</h3>
+      <p class="job__meta">Capital-markets software company · Tehran, Iran · Oct 2018 - Feb 2022</p>
+      <ul>
+        <li>Built C#/ASP.NET services for a stakeholder conferencing platform launched during COVID-19 to replace in-person capital-markets meetings, using RabbitMQ, SQL Server and Redis.</li>
+        <li>Developed automated reporting and real-time dashboards for internal operations.</li>
+      </ul>
+    </article>
+  </section>
+  <section>
+    <h2>Technical Skills</h2>
+    <ul class="skills">
+      <li><strong>Backend and data:</strong> C#, .NET 6-10, ASP.NET Core, Entity Framework Core, LINQ, SQL Server, T-SQL, Redis, NetTopologySuite</li>
+      <li><strong>Architecture and messaging:</strong> Domain-Driven Design, Clean Architecture, event-driven systems, microservices, REST APIs, Kafka, RabbitMQ, transactional outbox</li>
+      <li><strong>Delivery and testing:</strong> Docker, Kubernetes, GitLab CI/CD, Git, xUnit, Testcontainers, Moq, BDD (Gherkin/Reqnroll)</li>
+      <li><strong>Observability:</strong> Prometheus, Elastic APM, Serilog, Elasticsearch</li>
+    </ul>
+  </section>
+  <section>
+    <h2>Education &amp; Research</h2>
+    <article class="edu">
+      <h3>M.Sc. in Artificial Intelligence</h3>
+      <p>Shahid Beheshti University · 2016 - 2019</p>
+      <p>Multi-Agent Systems Lab: transfer learning for reinforcement learning, applied to traffic-signal control.</p>
+    </article>
+    <article class="edu">
+      <h3>B.Sc. in Software Engineering</h3>
+      <p>Shahrood University of Technology · 2012 - 2016</p>
+    </article>
+  </section>
+  <section>
+    <h2>Publication</h2>
+    <p>Norouzi, M., Abdoos, M. &amp; Bazzan, A. L. C. “Experience classification for transfer learning in traffic signal control.” <em>The Journal of Supercomputing</em>, 77, 780-795 (2021; online 2020). <a href="https://doi.org/10.1007/s11227-020-03287-x">Read publication</a>.</p>
+  </section>
+  <section>
+    <h2>Languages</h2>
+    <p>Persian: Native · English: Professional working proficiency</p>
+  </section>
+</main>
 </body>
 </html>

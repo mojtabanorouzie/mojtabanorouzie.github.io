@@ -1,37 +1,63 @@
 ---
 title: یادداشتی دربارهٔ idempotency
-description: چرا در سیستم‌های پیام‌محور، «دوباره اجرا شدن» یک استثنا نیست و باید از ابتدا برایش طراحی کنیم.
+description: ثبت اتمیک شناسهٔ پیام و تغییر وضعیت، و نقش قید یکتا در جلوگیری از پردازش هم‌زمان یک پیام.
 date: 2026-07-25
+updated: 2026-10-10
 type: note
 tags: [Kafka, event-driven, Persian]
 lang: fa
 ---
 
-هر سیستم پیام‌محوری که با تضمین at-least-once کار می‌کند، دیر یا زود یک پیام را دوبار
-تحویل می‌دهد. این باگ نیست؛ بخشی از قرارداد است. اگر broker مطمئن نباشد که پیام را
-پردازش کرده‌اید، دوباره می‌فرستد — و این دقیقاً همان رفتاری است که از او خواسته‌ایم.
+در تحویل at-least-once ممکن است یک پیام بیش از یک بار به مصرف‌کننده برسد. اگر پردازش
+پیام موجودی را کم کند یا وضعیت سفارش را تغییر دهد، اجرای دوباره می‌تواند اثر تکراری ایجاد کند.
 
-مشکل وقتی جدی می‌شود که `handler` ما فرض کرده باشد هر پیام دقیقاً یک بار می‌آید. آن وقت
-یک `retry` ساده می‌تواند موجودی انبار را دوبار کم کند یا برای یک سفارش دو بار فاکتور
-بزند.
+## بررسی قبلی به‌تنهایی کافی نیست
 
-راه‌حل معمولاً پیچیده نیست. کافی است هر پیام شناسهٔ یکتا داشته باشد و پیش از اعمال،
-بررسی کنیم که قبلاً آن را دیده‌ایم یا نه:
+دو پردازش‌گر ممکن است هم‌زمان بررسی کنند که شناسهٔ پیام قبلاً ثبت نشده است. هر دو پاسخ
+«ثبت نشده» می‌گیرند و هر دو به مرحلهٔ تغییر وضعیت می‌رسند. بنابراین یک فراخوانی
+`ExistsAsync` پیش از شروع تراکنش، تضمین جلوگیری از تکرار نیست.
 
-```csharp
-if (await _processed.ExistsAsync(message.Id))
-{
-    return HandlerResult.Skip;
-}
+برای تغییرات داخل یک پایگاه داده، می‌توان ثبت شناسه و تغییر وضعیت را در یک تراکنش انجام داد.
+جدول پیام‌های پردازش‌شده باید روی ترکیب نام مصرف‌کننده و شناسهٔ پیام قید یکتا داشته باشد.
+این قید است که رقابت دو پردازش‌گر را کنترل می‌کند، نه بررسی اولیه.
 
-await using var tx = await _db.BeginTransactionAsync();
-await _inventory.DecreaseAsync(message.Sku, message.Quantity);
-await _processed.AddAsync(message.Id);
-await tx.CommitAsync();
+## ترتیب عملیات
+
+الگوریتم زیر توضیح الگو است، نه کد آمادهٔ اجرا یا ادعای پیاده‌سازی یک سامانهٔ خاص:
+
+```text
+BEGIN database transaction
+  INSERT (consumer_name, message_id) into processed_messages
+    -- UNIQUE (consumer_name, message_id)
+  APPLY the business change using the SAME connection and transaction
+COMMIT
+ACKNOWLEDGE the message
 ```
 
-نکتهٔ ظریف این است که ثبت شناسه و خودِ تغییر وضعیت باید در یک تراکنش انجام شوند. اگر
-آن‌ها را جدا کنیم، باز هم به همان مشکل برمی‌گردیم — فقط با پنجرهٔ زمانی کوچک‌تری که
-پیدا کردنش سخت‌تر است.
+اگر درج شناسه با خطای همان قید یکتا شکست خورد، تراکنش را rollback می‌کنیم و پیام را
+تکراری در نظر می‌گیریم. فقط خطای قید مربوط به شناسهٔ پیام چنین معنایی دارد؛ خطاهای دیگر
+را نباید به‌عنوان تکرار پنهان کرد. در خطای دیگر، تراکنش rollback می‌شود و سیاست retry یا
+رسیدگی به خطای سامانه اجرا می‌شود.
 
-A short summary in English: with at-least-once delivery, the same message may arrive more than once. The system needs a way to handle it again without repeating the change. This is called idempotency. Planning for repeated messages early can help prevent problems later.
+اگر پردازش‌گر پس از commit و پیش از تأیید پیام متوقف شود، تحویل مجدد با شناسهٔ ثبت‌شده
+مواجه می‌شود و تغییر وضعیت را تکرار نمی‌کند. اگر تراکنش commit نشده باشد، هم ثبت شناسه
+و هم تغییر وضعیت باید rollback شده باشند تا تلاش بعدی بتواند کار را انجام دهد.
+
+## مرز این تضمین
+
+همهٔ عملیات داده باید واقعاً در همان تراکنش شرکت کنند. فراخوانی یک سرویس بیرونی، ارسال
+ایمیل یا تغییر در پایگاه داده‌ای دیگر با این تراکنش rollback نمی‌شود. برای انتشار رویداد
+می‌توان از transactional outbox استفاده کرد؛ اثرهای بیرونی نیز به راهکار idempotency
+متناسب با سرویس مقصد نیاز دارند. این الگو ادعای exactly-once در سراسر سامانه نیست.
+
+## آزمونی که این ادعا را بررسی می‌کند
+
+دو پردازش هم‌زمان برای یک شناسهٔ پیام آغاز کنید. پس از اتمام، باید فقط یک رکورد برای کلید
+مصرف‌کننده/پیام ثبت شده و موجودی فقط یک بار تغییر کرده باشد. سپس توقف پیش از commit و
+توقف پس از commit ولی پیش از acknowledgement را شبیه‌سازی کنید. در حالت اول، retry
+باید تغییر را اعمال کند؛ در حالت دوم، نباید آن را دوباره اعمال کند. این‌ها سناریوهای پیشنهادی
+آزمون هستند، نه گزارش اجرای آزمون برای کد این مقاله.
+
+Reference: [Idempotent Consumer pattern](https://microservices.io/patterns/communication-style/idempotent-consumer.html).
+
+English summary: a pre-check does not prevent concurrent duplicate processing. Use a unique consumer/message key and commit its insertion with the business change in one database transaction. Handle the specific duplicate-key conflict, acknowledge after commit, and design external side effects separately.

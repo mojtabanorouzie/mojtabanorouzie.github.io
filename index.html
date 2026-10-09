@@ -5,14 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <!-- ===== SEO / META ===== -->
-  <title>Mojtaba Norouzi — Senior Software Engineer &amp; Persian Musician</title>
+  <title>Mojtaba Norouzi — Senior Software Engineer | .NET Backend</title>
   <meta name="description" content="Mojtaba Norouzi — Senior Software Engineer building .NET backend and distributed systems since 2018. Production migrations, Kafka and SQL Server; AI research and Persian music." />
   <meta name="author" content="Mojtaba Norouzi" />
   <meta name="theme-color" content="#0e1116" />
 
   <!-- Open Graph -->
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="Mojtaba Norouzi — Senior Software Engineer &amp; Persian Musician" />
+  <meta property="og:title" content="Mojtaba Norouzi — Senior Software Engineer | .NET Backend" />
   <meta property="og:description" content="Senior .NET backend engineer working on production migrations, reliability and event-driven systems. M.Sc. in AI; Persian percussion and strings." />
   <meta property="og:url" content="https://mojtaba.tech/" />
   <meta property="og:image" content="https://mojtaba.tech/assets/og-image.png" />
@@ -23,7 +23,7 @@
 
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="alternate" type="application/rss+xml" title="Blog — Mojtaba Norouzi" href="/blog/rss.xml" />
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="styles.css?v=20261010" />
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -49,8 +49,8 @@
       </button>
 
       <ul class="nav__menu" id="nav-menu">
+        <li><a href="#tech">Engineering</a></li>
         <li><a href="#about">About</a></li>
-        <li><a href="#tech">Tech</a></li>
         <li><a href="#music">Music</a></li>
         <li><a href="#education">Education</a></li>
         <li><a href="/blog/">Blog</a></li>
@@ -76,16 +76,15 @@
       </svg>
 
       <div class="hero__inner">
-        <p class="hero__eyebrow">Senior Software Engineer · Backend &amp; Distributed Systems · Persian Musician</p>
+        <p class="hero__eyebrow">Senior Software Engineer · .NET Backend &amp; Distributed Systems</p>
         <h1 id="hero-title" class="hero__title">Mojtaba Norouzi</h1>
         <p class="hero__tagline">
-          I architect distributed systems and keep the rhythm of the
-          <span class="accent">daf</span> — engineering and music, two expressions of the same pattern-sense.
+          Building reliable backend systems through production change.
         </p>
         <p class="hero__intro">
-          I've built commercial backend systems since 2018, with a focus on C#/.NET, Kafka,
-          and SQL Server. At Okala, I work on production migrations and reliable delivery
-          operations. I also hold an M.Sc. in AI and play Daf, Tar, Tonbak, and Setar.
+          At Okala, I have owned delivery of two production-platform replacements across
+          fulfillment and delivery operations. My work combines .NET, Kafka and SQL Server
+          with production reliability and technical mentoring. Based in Tehran and open to EU relocation.
         </p>
 
         <div class="hero__cta">
@@ -96,39 +95,15 @@
         </div>
       </div>
 
-      <a class="hero__scroll" href="#about" aria-label="Scroll to About">
+      <a class="hero__scroll" href="#tech" aria-label="Scroll to Engineering">
         <span></span>
       </a>
-    </section>
-
-    <!-- ===== ABOUT ===== -->
-    <section id="about" class="section" aria-labelledby="about-title">
-      <div class="section__head">
-        <span class="section__index">01</span>
-        <h2 id="about-title">About</h2>
-      </div>
-      <div class="about">
-        <p class="lead">
-          I live where structure meets expression. By day I design and ship reliable backend
-          systems — event-driven services, data models, and APIs that hold up under load.
-          By night I sit behind a <strong>tonbak</strong> or lift a <strong>daf</strong>, working in
-          the same currency I use at work: <em>pattern, timing, and tension-and-release</em>.
-        </p>
-        <p>
-          A 6/8 Persian rhythm and a well-orchestrated stream of Kafka events aren't so different —
-          both are about getting many independent voices to stay in time. Whether I'm tuning a
-          consumer group for throughput or tuning a daf for a performance, I'm chasing the same
-          thing: many parts moving on their own yet landing together, exactly on the beat. That
-          instinct — for structure that breathes — is what ties my engineering and my music into a
-          single way of thinking.
-        </p>
-      </div>
     </section>
 
     <!-- ===== TECH ===== -->
     <section id="tech" class="section" aria-labelledby="tech-title">
       <div class="section__head">
-        <span class="section__index">02</span>
+        <span class="section__index">01</span>
         <h2 id="tech-title">Engineering</h2>
       </div>
 
@@ -166,13 +141,13 @@
       <h3 class="subhead">Selected projects</h3>
       <div class="cards">
         <article class="card">
-          <h4>Replacing Two Live Platforms</h4>
-          <p>I owned the replacement of two live platforms, first fulfillment and then delivery: building their replacements, migrating every operational flow, and retiring both legacy systems. As services moved from Windows Server to Kubernetes, production incidents fell from near-daily to one or two a month.</p>
-          <ul class="tags"><li>.NET</li><li>Kubernetes</li><li>DDD · EDD</li></ul>
+          <h4><a href="#platform-replacements">Replacing Two Live Platforms</a></h4>
+          <p>I owned the replacement of two live platforms, first fulfillment and then delivery: building their replacements, migrating every operational flow, and retiring both legacy systems. Following the migration from Windows Server to containerised services on Kubernetes, production incidents became rare, down from almost daily.</p>
+          <ul class="tags"><li>.NET</li><li>Kubernetes</li><li>Domain-driven design</li></ul>
         </article>
         <article class="card">
           <h4>Delivery Operations APIs</h4>
-          <p>With the team, I built four independently deployable .NET 10 services exposing around 200 versioned REST endpoints. Four versions of the store API run side by side, with JWT authentication, role-based access, and per-user rate limiting.</p>
+          <p>With the team, I built a platform with four independently deployable .NET 10 services and around 200 versioned REST endpoints. Four versions of the store API run side by side to support existing clients.</p>
           <ul class="tags"><li>REST · API versioning</li><li>Kafka</li><li>ASP.NET Core</li></ul>
         </article>
         <article class="card">
@@ -182,7 +157,7 @@
         </article>
         <article class="card">
           <h4>Geospatial Store Coverage</h4>
-          <p>I built delivery coverage and nearby-store search with SQL Server spatial types and NetTopologySuite: delivery radiuses, exclusion polygons, and distance-ranked results.</p>
+          <p>I built delivery coverage and nearby-store search with SQL Server spatial types and NetTopologySuite: delivery radii, exclusion polygons, and distance-ranked results.</p>
           <ul class="tags"><li>NetTopologySuite</li><li>SQL Server spatial</li><li>Geospatial</li></ul>
         </article>
         <article class="card">
@@ -198,10 +173,18 @@
       </div>
 
       <p>
-        Alongside implementation, I define engineering standards and a spec-driven,
-        AI-assisted development workflow, and mentor junior and mid-level engineers through
-        code reviews, design reviews, and technical unblocking.
+        Alongside implementation, I define engineering standards and mentor junior and mid-level engineers through
+        code reviews, design discussions and technical problem-solving.
       </p>
+
+      <article class="card" id="platform-replacements" aria-labelledby="replacement-title">
+        <h3 id="replacement-title">Engineering case study: replacing two live platforms</h3>
+        <p><strong>Context.</strong> Okala’s fulfillment and delivery operations ran on existing production systems. My work involved building their replacements, moving operational workflows and retiring the predecessors.</p>
+        <p><strong>My responsibility.</strong> I owned execution of the fulfillment replacement during my Software Engineer role, then the delivery replacement as a Senior Software Engineer. The wider delivery platform was built with the team.</p>
+        <p><strong>Implementation.</strong> The current delivery platform comprises four independently deployable .NET services. Its APIs support four concurrent store API versions. I led the Kafka event-backbone work, using business-entity keys for per-entity ordering, with at-least-once delivery, retries and notification deduplication.</p>
+        <p><strong>Verification and operations.</strong> I built integration tests using real SQL Server and Redis containers and two ASP.NET Core hosts. Metrics and distributed tracing support production diagnosis across the services.</p>
+        <p><strong>Outcome.</strong> Both predecessor platforms were retired after their workflows migrated. Following the move from Windows Server to Kubernetes, production incidents became rare, down from almost daily.</p>
+      </article>
 
       <h3 class="subhead">Timeline</h3>
       <ol class="timeline">
@@ -217,7 +200,7 @@
           <span class="timeline__desc">Capital-markets software company, Tehran · C#/ASP.NET services for stakeholder conferencing, automated reporting, and real-time dashboards; RabbitMQ, SQL Server &amp; Redis</span>
         </li>
         <li>
-          <span class="timeline__year">Sep 2017 — Oct 2018</span>
+          <span class="timeline__year">2018 — 2019</span>
           <span class="timeline__title">Research Assistant</span>
           <span class="timeline__desc">Shahid Beheshti University, Tehran · Multi-Agent Systems (MAS) Lab — transfer learning for reinforcement learning, applied to traffic signal control</span>
         </li>
@@ -227,6 +210,16 @@
           <span class="timeline__desc">Shahid Beheshti University · reinforcement learning &amp; transfer learning</span>
         </li>
       </ol>
+    </section>
+
+    <!-- ===== ABOUT ===== -->
+    <section id="about" class="section" aria-labelledby="about-title">
+      <div class="section__head"><span class="section__index">02</span><h2 id="about-title">About</h2></div>
+      <div class="about">
+        <p class="lead">I have built commercial backend systems since 2018, working on the services that support everyday commerce and delivery.</p>
+        <p>My work spans implementation, production migrations and operational support. I also mentor engineers through code reviews and design discussions. I hold an M.Sc. in Artificial Intelligence; my research on transfer learning for reinforcement learning led to a co-authored journal publication.</p>
+        <p>Outside engineering, I play Persian percussion and string instruments. Music is a lasting part of my life alongside software.</p>
+      </div>
     </section>
 
     <!-- ===== MUSIC ===== -->
@@ -319,9 +312,9 @@
           <p>Research in the Multi-Agent Systems Lab on transfer learning for reinforcement learning, applied to traffic-signal control.</p>
         </article>
         <article class="card card--edu">
-          <h4>B.Sc. — Computer Engineering</h4>
+          <h4>B.Sc. — Software Engineering</h4>
           <p class="role__meta">Shahrood University of Technology · 2012 – 2016</p>
-          <p>Foundations in software engineering, algorithms, and systems.</p>
+
         </article>
       </div>
 
@@ -361,7 +354,7 @@
         <span class="section__index">06</span>
         <h2 id="contact-title">Get in touch</h2>
       </div>
-      <p class="lead">Based in Tehran and open to relocation to the EU for senior backend/.NET roles. Also open to musical collaborations.</p>
+      <p class="lead">Based in Tehran and open to relocation to the EU for senior backend/.NET roles. </p>
       <div class="contact__links">
         <a class="btn btn--primary" href="mailto:mojtaba.norouzie@gmail.com">mojtaba.norouzie@gmail.com</a>
         <a class="btn" href="https://github.com/mojtabanorouzie" target="_blank" rel="noopener">GitHub</a>

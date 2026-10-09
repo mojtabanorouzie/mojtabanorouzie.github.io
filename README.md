@@ -187,17 +187,13 @@ Engineering, education, links, and résumé download are filled from the real CV
 - LinkedIn: <https://www.linkedin.com/in/mojtabanorouzi/>
 - Email: `mojtaba.norouzie@gmail.com`
 
-The **Music → Performance highlights** list and the empty embed slot were placeholder
-content and have been removed — do not reintroduce venues, dates or credits that have not
-been verified. The instrument cards still assert an **"Advanced · Performer"** level, which
-is unconfirmed; correct or remove it.
+The CV HTML is the source of truth for the generated PDF. Role attribution was reconciled with the LinkedIn profile read on 9 October 2026. On 10 October the owner clarified that incidents became rare, replacing the older 1–2/month claim. No exact incident count or measurement window is asserted.
 
-**Résumé claims are evidence-backed.** Titles, dates, scale figures and outcomes in
-`resume/resume.html` were reconstructed from a structured interview, and each is intended
-to be defensible in a technical interview and consistent with what a former employer would
-confirm. The 2017–2021 employer is deliberately unnamed (described by sector) at the
-owner's request — that is a privacy choice, not a placeholder, and it should never be
-replaced with an invented company name.
+The earlier employer remains unnamed in the CV/site as a deliberate privacy choice. Do not invent an employer or an NDA explanation. Dates: October 2018–February 2022.
+
+On 10 October 2026 the owner confirmed: bachelor’s studies in Software Engineering (2012–2016); master’s studies from Mehr 1395 to Mehr 1398 (September/October 2016 to September/October 2019); university lab work overlapped the final master’s year and the first company role, so research is shown as 2018–2019. The existing October 2018 company start is retained as approximate month-level history consistent with that explanation, not an independently verified exact date. Okala started 15 Bahman 1400, converted to 4 February 2022; public month-level copy uses February 2022. Promotion remains October 2024. The owner also confirmed the named music performances and ensemble membership; these credits are retained. Do not describe the university lab role as separately verified full-time paid employment.
+
+The platform-replacement case study uses existing career evidence. It does not claim zero downtime, a benchmark, an exact reliability percentage, or solo delivery of team work.
 
 Optional: add `assets/og-image.png` (1200×630) for a richer social-share preview.
 
