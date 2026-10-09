@@ -263,6 +263,37 @@
         </article>
       </div>
 
+      <div class="concerts" aria-labelledby="concerts-title">
+        <div class="concerts__intro">
+          <p class="concerts__eyebrow">From the concert archive</p>
+          <h3 id="concerts-title">Music, in good company.</h3>
+          <p>Two posters from my concerts with the Foroozan Ensemble.</p>
+        </div>
+        <div class="concerts__gallery">
+          <figure class="concert">
+            <a class="concert__image" href="assets/music/foroozan-vahdat-1440.webp" data-concert="Foroozan Ensemble · Vahdat Hall" aria-label="Enlarge Foroozan Ensemble concert poster, Vahdat Hall">
+              <img src="assets/music/foroozan-vahdat-720.webp" srcset="assets/music/foroozan-vahdat-720.webp 720w, assets/music/foroozan-vahdat-1440.webp 1393w" sizes="(max-width: 640px) calc(100vw - 70px), 440px" width="720" height="1555" loading="lazy" decoding="async" alt="Photograph of a yellow Foroozan Ensemble concert poster with Persian calligraphy and a floral border." />
+              <span class="concert__expand" aria-hidden="true">View poster ↗</span>
+            </a>
+            <figcaption>
+              <span class="concert__number" aria-hidden="true">01</span>
+              <div><h4>Foroozan Ensemble</h4><p>Vahdat Hall <span>· 22 Mordad 1398</span></p></div>
+            </figcaption>
+          </figure>
+          <figure class="concert">
+            <a class="concert__image" href="assets/music/iran-e-ma-1440.webp" data-concert="Iran-e Ma · Aseman Cultural and Arts Complex" aria-label="Enlarge Iran-e Ma concert poster, Aseman Cultural and Arts Complex">
+              <img src="assets/music/iran-e-ma-720.webp" srcset="assets/music/iran-e-ma-720.webp 720w, assets/music/iran-e-ma-1440.webp 1440w" sizes="(max-width: 640px) calc(100vw - 70px), 440px" width="720" height="1013" loading="lazy" decoding="async" alt="Photograph of the Iran-e Ma concert poster, with Persian lettering and instruments illustrated inside a map of Iran." />
+              <span class="concert__expand" aria-hidden="true">View poster ↗</span>
+            </a>
+            <figcaption>
+              <span class="concert__number" aria-hidden="true">02</span>
+              <div><h4>Iran-e Ma <span lang="fa" dir="rtl">ایران ما</span></h4><p>Aseman Cultural and Arts Complex <span>· 3 Esfand 1402</span></p></div>
+            </figcaption>
+          </figure>
+        </div>
+        <p class="concerts__note">Dates follow the Persian calendar.</p>
+      </div>
+
       <h3 class="subhead">Performance highlights</h3>
       <ul class="highlights">
         <li>Member, Foroozan Ensemble — 2015–present</li>
@@ -342,6 +373,13 @@
     <p>© <span id="year"></span> Mojtaba Norouzi · Built with semantic HTML, CSS &amp; vanilla JS.</p>
   </footer>
 
+  <dialog class="poster-viewer" aria-labelledby="poster-viewer-title">
+    <div class="poster-viewer__bar">
+      <h2 id="poster-viewer-title">Concert poster</h2>
+      <button class="poster-viewer__close btn" type="button" autofocus aria-label="Close concert poster">Close ×</button>
+    </div>
+    <img class="poster-viewer__image" alt="" />
+  </dialog>
   <script src="script.js"></script>
 </body>
 </html>

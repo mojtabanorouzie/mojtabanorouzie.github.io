@@ -142,6 +142,30 @@
       .catch(function () { /* static CTA already covers this case */ });
   }
 
+  /* Links remain usable without JavaScript or dialog support. */
+  var viewer = document.querySelector('.poster-viewer');
+  if (viewer && typeof viewer.showModal === 'function') {
+    var viewerImage = viewer.querySelector('.poster-viewer__image');
+    var viewerTitle = document.getElementById('poster-viewer-title');
+    document.querySelectorAll('[data-concert]').forEach(function (link) {
+      link.addEventListener('click', function (event) {
+        if (event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return;
+        event.preventDefault();
+        viewerImage.src = link.href;
+        viewerImage.alt = link.querySelector('img').alt;
+        viewerTitle.textContent = link.getAttribute('data-concert');
+        viewer.showModal();
+      });
+    });
+    viewer.querySelector('.poster-viewer__close').addEventListener('click', function () {
+      viewer.close();
+    });
+    viewer.addEventListener('click', function (event) {
+      var bounds = viewer.getBoundingClientRect();
+      if (event.target === viewer && (event.clientX < bounds.left || event.clientX > bounds.right || event.clientY < bounds.top || event.clientY > bounds.bottom)) viewer.close();
+    });
+  }
+
   /* ---- Footer year ---- */
   var year = document.getElementById("year");
   if (year) year.textContent = new Date().getFullYear();
